@@ -1,0 +1,12 @@
+#searchResultsTitle {
+    font-size: 2em;
+    text-align:center;
+    vertical-align: middle;
+    padding-top: 1em;
+}
+
+#resultsList {
+    margin: 0 auto;
+    width: 50em;
+    padding-top: 1em;
+}

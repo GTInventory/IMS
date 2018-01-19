@@ -1,0 +1,11 @@
+#advancedSearch {
+     border-left: 1px solid #333333;
+}
+
+#asHidden {
+    display: none;
+}
+
+#asVisible {
+    display: block;
+}

@@ -1,0 +1,18 @@
+#advancedSearchOptions {
+    margin: 0 auto;
+    width: 30em;
+    padding-top: 1em;
+}
+
+
+#break td {
+  height: 10px;
+}
+
+#submitButtonSpan {
+    display:table;
+
+    /*
+    margin: 0 auto;
+    */
+}

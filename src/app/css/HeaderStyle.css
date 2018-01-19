@@ -1,0 +1,17 @@
+.navbar-nav > li{
+  padding-left:1em;
+  padding-right:1em;
+}
+
+#navItem {
+    color: #000000;
+}
+
+#navItem:hover {
+    font-weight: bold;
+}
+
+.navbar-default {
+    background-color: #EEB211;
+    border-color: #E7E7E7;
+}
