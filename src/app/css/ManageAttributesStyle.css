@@ -1,0 +1,21 @@
+#titleBlock {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+#manageAttributesTitle {
+    font-size: 2em;
+    text-align: center;
+    vertical-align: middle;
+    padding: 1em;
+}
+
+#addAttribute {
+    width: 3em;
+    height: 3em;
+    padding: 0.5em 0px;
+    border-radius: 1.5em;
+    margin-top: 3em;
+    text-align: center;
+}

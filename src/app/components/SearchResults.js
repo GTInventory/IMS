@@ -57,7 +57,6 @@ export class SearchResults extends React.Component {
                         </tbody>
                     </table>
                 </div>
-
             </div>
         );
     }
