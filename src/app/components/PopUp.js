@@ -1,6 +1,6 @@
 /*
     The add attributes page modal allows for a user to create a new attribute to be added to the
-    system. 
+    system.
  */
 
 import React from 'react';
@@ -10,9 +10,6 @@ require("../css/PopUpStyle.css");
 export class PopUp extends React.Component {
   render() {
     // Render nothing if the "show" prop is false
-    if(!this.props.show) {
-      return null;
-    }
 
     // The gray background
     const backdropStyle = {
@@ -34,28 +31,29 @@ export class PopUp extends React.Component {
       margin: '0 auto',
       padding: 30,
       transform: [{'translate':[0,0,5]}]
-      
+
     };
 
     return (
-      <div className="backdrop" style={backdropStyle}>
-        <div className="PopUp" style={modalStyle}>
-          {this.props.children}
-
-          <div className="footer">
-            <button onClick={this.props.onClose}>
-              Close
-            </button>
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                ...
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary">Save changes</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
     );
   }
 }
-
-PopUp.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  show: PropTypes.bool,
-  children: PropTypes.node,
-};
-
