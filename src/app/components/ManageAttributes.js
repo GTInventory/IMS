@@ -49,10 +49,9 @@ export class ManageAttributes extends React.Component {
     }
 
     handleSubmit(event) {
-        alert("Attribute: " + this.state.aName + " was created");
+        console.log("HI");
         event.preventDefault();
     }
-
 
     render() {
         return (
@@ -64,8 +63,8 @@ export class ManageAttributes extends React.Component {
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
-                <Modal mtitle = "Add Attribute">
-                    <form onSubmit={this.handleSubmit}>
+                <Modal mtitle = "Add Attribute" handleSave={this.handleSubmit}>
+                    <form>
                         <label>
                             Attribute Name:
                             <input
@@ -87,7 +86,7 @@ export class ManageAttributes extends React.Component {
                             <option value="integer">Integer</option>
                             <option value="string">String</option>
                             <option value="textbox">Textbox</option>
-                        </select>
+                            </select>
                         </label>
                         <br />
                         <label>
@@ -98,9 +97,7 @@ export class ManageAttributes extends React.Component {
                             checked={this.state.visible}
                             onChange={this.handleInputChange} />
                         </label>
-                        <br />
-                        <input type="submit" value="Submit" />
-                        <br />
+                        <br/>
                     </form>
                 </Modal>
                 <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search"/>
