@@ -7,10 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 require("../css/PopUpStyle.css");
 
-export class PopUp extends React.Component {
+export class Modal extends React.Component {
   render() {
-    // Render nothing if the "show" prop is false
-
     return (
         <div className="modal fade" id="addModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -35,7 +33,7 @@ export class PopUp extends React.Component {
   }
 }
 
-PopUp.propTypes = {
+Modal.propTypes = {
   mtitle: PropTypes.string,
   children: PropTypes.node
 };
