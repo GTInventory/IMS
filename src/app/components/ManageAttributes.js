@@ -40,7 +40,7 @@ export class ManageAttributes extends React.Component {
 
     handleInputChange(event) {
         const target = event.target;
-        const value = target.type === "textarea" ? target.checked : target.value;
+        const value = target.type === "checkbox" ? target.checked : target.value;
         const name = target.name;
 
         this.setState({
@@ -85,12 +85,18 @@ export class ManageAttributes extends React.Component {
                             <br />
                             <label>
                                 Attribute Type:
-                                <input
-                                    name="selectaType"
-                                    type="textarea"
-                                    value={this.state.selectaType}
-                                    onChange={this.handleInputChange}/>
-                            </label>
+                                <select value={this.state.value} onChange={this.handleChange}>
+                                <option value="aType">Select an Attribute Type</option>
+                                <option value="boolean">Boolean</option>
+                                <option value="currency">Currency</option>
+                                <option value="Date/Time">Date/Time</option>
+                                <option value="Enum">Enumerated set of options</option>
+                                <option value="image">Image</option>
+                                <option value="integer">Integer</option>
+                                <option value="string">String</option>
+                                <option value="textbox">Textbox</option>
+                            </select>
+                            </label> 
                             <br />
                             <label>
                               Visible to Renter:
@@ -102,6 +108,7 @@ export class ManageAttributes extends React.Component {
                             </label>
                             <br />
                             <input type="submit" value="Submit" />
+                            <br />
                         </form>
                     </PopUp>
                 </div>
