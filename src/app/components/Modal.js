@@ -14,7 +14,7 @@ export class Modal extends React.Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">{this.props.mtitle}</h5>
+                <h1 className="modal-title" id="exampleModalLabel">{this.props.mtitle}</h1>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>

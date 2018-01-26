@@ -66,7 +66,6 @@ export class ManageAttributes extends React.Component {
                 </div>
                 <Modal mtitle = "Add Attribute">
                     <form onSubmit={this.handleSubmit}>
-                        <h1> Add an Attribute </h1>
                         <label>
                             Attribute Name:
                             <input
