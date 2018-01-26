@@ -112,7 +112,7 @@ export class ManageAttributes extends React.Component {
                         </form>
                     </PopUp>
                 </div>
-                <AttributeSearchTool baSrtyle={styles.attributeSearchBar} placeholder="Attribute Search"/>
+                <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search"/>
             </div>
         );
     }
