@@ -10,7 +10,7 @@ require("../css/ManageAttributesStyle.css");
 
 import {SearchBar} from "./SearchBar";
 import {AttributeSearchTool} from "./AttributeSearchTool";
-import {PopUp} from "./PopUp";
+import {Modal} from "./Modal";
 //import {freeForm} from "./freeForm";
 
 export class ManageAttributes extends React.Component {
@@ -53,13 +53,6 @@ export class ManageAttributes extends React.Component {
         event.preventDefault();
     }
 
-    toggleAddAttribute = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
-
 
     render() {
         return (
@@ -67,11 +60,50 @@ export class ManageAttributes extends React.Component {
                 <SearchBar barStyle={styles.searchBar} placeholder="Search" history={this.props.history}/>
                 <div id="titleBlock">
                     <h1 id="manageAttributesTitle">Manage Attributes</h1>
-                    <button id="addAttribute" className="btn btn-secondary" type="button" data-toggle="modal" data-target="#exampleModal">
+                    <button id="addAttribute" className="btn btn-secondary" type="button" data-toggle="modal" data-target="#addModal">
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
-                <PopUp/>
+                <Modal mtitle = "Add Attribute">
+                    <form onSubmit={this.handleSubmit}>
+                        <h1> Add an Attribute </h1>
+                        <label>
+                            Attribute Name:
+                            <input
+                                name="enteraName"
+                                type="textarea"
+                                named={this.state.enteraName}
+                                onChange={this.handleInputChange} />
+                        </label>
+                        <br />
+                        <label>
+                            Attribute Type:
+                            <select value={this.state.value} onChange={this.handleChange}>
+                            <option value="aType">Select an Attribute Type</option>
+                            <option value="boolean">Boolean</option>
+                            <option value="currency">Currency</option>
+                            <option value="Date/Time">Date/Time</option>
+                            <option value="Enum">Enumerated set of options</option>
+                            <option value="image">Image</option>
+                            <option value="integer">Integer</option>
+                            <option value="string">String</option>
+                            <option value="textbox">Textbox</option>
+                        </select>
+                        </label>
+                        <br />
+                        <label>
+                          Visible to Renter:
+                          <input
+                            name="visible"
+                            type="checkbox"
+                            checked={this.state.visible}
+                            onChange={this.handleInputChange} />
+                        </label>
+                        <br />
+                        <input type="submit" value="Submit" />
+                        <br />
+                    </form>
+                </Modal>
                 <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search"/>
             </div>
         );
