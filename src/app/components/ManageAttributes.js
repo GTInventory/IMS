@@ -61,6 +61,7 @@ export class ManageAttributes extends React.Component {
         console.log(this.state.visible);
         console.log(this.state.attributeType);
         console.log(this.state.attributeName);
+        //TODO: Check if attribute already exists in database before adding
         event.preventDefault();
     }
 
