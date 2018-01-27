@@ -16,12 +16,12 @@ export class AttributeSearchTool extends React.Component {
             tableState: "asHidden",
             searchString: "",
             db_response: "",
+            resultsTable: ""
         };
     }
 
     onHandleSearchChange(event) {
         this.setState({
-            tableState: "asVisible",
             searchString: event.target.value
         });
     }
@@ -37,13 +37,28 @@ export class AttributeSearchTool extends React.Component {
                 ref.setState({
                 db_response: response
                 })
+
                 console.log('Success:', ref.state.db_response);
             });
-        
+
+        var numEls = this.state.db_response.result.length;
+        var namesList = [];
+        for (var i = 0; i < numEls; i++) {
+            namesList.push(this.state.db_response.result[i].name);
+        }
+
+        var results = namesList.map(function(name){
+                        return <tr><td>{name}</td></tr>;
+                    });
+
+        this.setState({
+            resultsTable: results,
+            tableState: "asVisible"
+        });
+
         event.preventDefault();
     }
 
-    // Generated table goes inside empty div
     render () {
         return (
             <div>
@@ -57,8 +72,17 @@ export class AttributeSearchTool extends React.Component {
                         </span>
                     </div>
                 </form>
-                <div id={this.state.tableState}>
-                    <h1> Create Table!</h1>
+                <div id={this.state.tableState} className="hiddenTableDiv">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Results</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.resultsTable}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         );

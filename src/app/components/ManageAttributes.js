@@ -14,29 +14,14 @@ import {Modal} from "./Modal";
 //import {freeForm} from "./freeForm";
 
 export class ManageAttributes extends React.Component {
-
-    searchButtonClicked(event) {
-        // Handle button click event
-        event.preventDefault();
-    }
-
-    onHandleSearchChange(event) {
-
-    }
-
     constructor(props) {
         super(props);
-
         this.state = {
             isOpen: false,
-            enteraName: "Enter a name for this attribute",
-            selectaType: "Select a Type",
             visible: false,
             attributeType: "",
             attributeName: ""
         };
-
-        //this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     handleSelectChange(event) {

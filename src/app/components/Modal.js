@@ -10,14 +10,14 @@ require("../css/PopUpStyle.css");
 export class Modal extends React.Component {
   render() {
     return (
-        <div className="modal fade" id="addModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="addModal" tabIndex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h1 className="modal-title" id="exampleModalLabel">{this.props.mtitle}</h1>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
+                <h2 className="modal-title" id="addModalLabel">{this.props.mtitle}</h2>
               </div>
               <div className="modal-body">
                 {this.props.children}

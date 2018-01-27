@@ -19,3 +19,9 @@
     margin-top: 3em;
     text-align: center;
 }
+
+.hiddenTableDiv {
+    margin: 0 auto;
+    width: 50em;
+    padding-top: 1em;
+}
