@@ -31,25 +31,36 @@ export class ManageAttributes extends React.Component {
             isOpen: false,
             enteraName: "Enter a name for this attribute",
             selectaType: "Select a Type",
-            visible: false
-
+            visible: false,
+            attributeType: "",
+            attributeName: ""
         };
 
-        this.handleInputChange = this.handleInputChange.bind(this);
+        //this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleSelectChange(event) {
+        this.setState({
+            attributeType: event.target.value
+        })
     }
 
     handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const name = target.name;
-
         this.setState({
-            [name] : value
+            attributeName: event.target.value
+        });
+    }
+
+    handleCheckboxChange(event) {
+        this.setState({
+            visible: event.target.checked
         });
     }
 
     handleSubmit(event) {
-        console.log("HI");
+        console.log(this.state.visible);
+        console.log(this.state.attributeType);
+        console.log(this.state.attributeName);
         event.preventDefault();
     }
 
@@ -63,39 +74,31 @@ export class ManageAttributes extends React.Component {
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
-                <Modal mtitle = "Add Attribute" handleSave={this.handleSubmit}>
+                <Modal mtitle = "Add Attribute" handleSave={this.handleSubmit.bind(this)}>
                     <form>
                         <label>
                             Attribute Name:
-                            <input
-                                name="enteraName"
-                                type="textarea"
-                                named={this.state.enteraName}
-                                onChange={this.handleInputChange} />
+                            <input name="enteraName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
                         </label>
                         <br />
                         <label>
                             Attribute Type:
-                            <select value={this.state.value} onChange={this.handleChange}>
+                            <select value={this.state.value} onChange={(event) => this.handleSelectChange(event)}>
                             <option value="aType">Select an Attribute Type</option>
-                            <option value="boolean">Boolean</option>
-                            <option value="currency">Currency</option>
+                            <option value="Boolean">Boolean</option>
+                            <option value="Currency">Currency</option>
                             <option value="Date/Time">Date/Time</option>
                             <option value="Enum">Enumerated set of options</option>
-                            <option value="image">Image</option>
-                            <option value="integer">Integer</option>
-                            <option value="string">String</option>
-                            <option value="textbox">Textbox</option>
+                            <option value="Image">Image</option>
+                            <option value="Integer">Integer</option>
+                            <option value="String">String</option>
+                            <option value="Textbox">Textbox</option>
                             </select>
                         </label>
                         <br />
                         <label>
                           Visible to Renter:
-                          <input
-                            name="visible"
-                            type="checkbox"
-                            checked={this.state.visible}
-                            onChange={this.handleInputChange} />
+                          <input name="visible" type="checkbox" onChange={(event) => this.handleCheckboxChange(event)} />
                         </label>
                         <br/>
                     </form>
