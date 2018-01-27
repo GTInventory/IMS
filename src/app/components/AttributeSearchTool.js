@@ -7,13 +7,15 @@ import React from "react";
 import PropTypes from "prop-types";
 require("../css/AttributeSearchToolStyle.css");
 
+var BASE_URL = "https://ims-backend.mybluemix.net"
 
 export class AttributeSearchTool extends React.Component {
     constructor() {
         super();
         this.state = {
             tableState: "asHidden",
-            searchString: ""
+            searchString: "",
+            db_response: "",
         };
     }
 
@@ -25,7 +27,19 @@ export class AttributeSearchTool extends React.Component {
     }
 
     searchButtonClicked(event) {
-
+        var ref = this;
+        var url = BASE_URL + "/attribute?q=" + this.state.searchString;
+        fetch(url, {method: 'GET'}).then(res => res.json())
+            .catch(function(error) {
+                throw new Error('Network response was not ok:', response.status);
+            })
+            .then(function(response) {
+                ref.setState({
+                db_response: response
+                })
+                console.log('Success:', ref.state.db_response);
+            });
+        
         event.preventDefault();
     }
 
