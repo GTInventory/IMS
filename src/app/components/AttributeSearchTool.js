@@ -47,9 +47,9 @@ export class AttributeSearchTool extends React.Component {
             namesList.push(this.state.db_response.result[i].name);
         }
 
-        var results = namesList.map(function(name){
+        var results = namesList.map((function(name){
                         return <tr  na={name} key={name}><td>{name}</td><td>hi</td></tr>;
-                    }.bind(this));
+                    }).bind(this));
 
         this.setState({
             resultsTable: results,
