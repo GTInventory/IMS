@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build",
-    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --history-api-fallback",
+    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --port 3006 --content-base src/ --inline --history-api-fallback",
     "build:prod": "webpack -p && copy src/index.html dist/index.html"
   },
   "keywords": [

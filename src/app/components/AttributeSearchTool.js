@@ -48,8 +48,8 @@ export class AttributeSearchTool extends React.Component {
         }
 
         var results = namesList.map(function(name){
-                        return <tr><td>{name}</td></tr>;
-                    });
+                        return <tr  na={name} key={name}><td>{name}</td><td>hi</td></tr>;
+                    }.bind(this));
 
         this.setState({
             resultsTable: results,
@@ -57,6 +57,10 @@ export class AttributeSearchTool extends React.Component {
         });
 
         event.preventDefault();
+    }
+
+    attributeClicked(event) {
+        console.log(event.target);
     }
 
     render () {
@@ -79,7 +83,7 @@ export class AttributeSearchTool extends React.Component {
                                 <th>Results</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody onClick={(event)=>this.attributeClicked(event)}>
                             {this.state.resultsTable}
                         </tbody>
                     </table>
