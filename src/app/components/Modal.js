@@ -1,6 +1,5 @@
 /*
-    The add attributes page modal allows for a user to create a new attribute to be added to the
-    system.
+    A basic popup modal that has forms for the user to fill out. (Ex. addattribute modal, add equipmenttype modal, etc)
  */
 
 import React from 'react';
