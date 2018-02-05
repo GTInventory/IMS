@@ -23,7 +23,7 @@ export class Modal extends React.Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary" onClick={this.props.handleSave}>Save</button>
+                <button type="button" className="btn btn-primary" onClick={this.props.handleSave} data-dismiss="modal">Save</button>
               </div>
             </div>
           </div>
