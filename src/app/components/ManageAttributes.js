@@ -111,7 +111,7 @@ export class ManageAttributes extends React.Component {
                         <br/>
                     </form>
                 </Modal>
-                <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search"/>
+                <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search" history={this.props.history}/>
             </div>
         );
     }

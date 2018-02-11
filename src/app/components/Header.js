@@ -9,18 +9,11 @@ export const Header = () => {
                 <ul className="nav navbar-nav">
                     <li><Link to={"/"}><span className="glyphicon glyphicon-home" id="navItem"></span></Link></li>
                     <li><Link to={"/"} id="navItem">Search</Link></li>
-                    <li className="dropdown"><a id="navItem" className="dropdown-toggle navItem" data-toggle="dropdown" href="#">Manage<span className="caret"></span></a>
-                      <ul className="dropdown-menu">
-                        <li><Link to={"/manage/attributes"}>Attributes</Link></li>
-                        <li><Link to={"/manage/equipment"}>Equipment</Link></li>
-                        <li><Link to={"/manage/equipmentTypes"}>Equipment Types</Link></li>
-                      </ul>
-                    </li>
                     <li className="dropdown"><a id="navItem" className="dropdown-toggle navItem" data-toggle="dropdown" href="#">Configure<span className="caret"></span></a>
                       <ul className="dropdown-menu">
-                        <li><Link to={"/manage/attributes"}>EditAttributes</Link></li>
-                        <li><Link to={"/manage/equipment"}>EditEquipment</Link></li>
-                        <li><Link to={"/manage/equipmentTypes"}>EditEquipment Types</Link></li>
+                        <li><Link to={"/configure/attributes"}>Attributes</Link></li>
+                        <li><Link to={"/configure/equipment"}>Equipment</Link></li>
+                        <li><Link to={"/configure/equipmentTypes"}>Equipment Types</Link></li>
                       </ul>
                     </li>
                 </ul>

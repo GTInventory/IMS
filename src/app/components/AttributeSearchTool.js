@@ -48,7 +48,11 @@ export class AttributeSearchTool extends React.Component {
         }
 
         var results = namesList.map((function(name){
-                        return <tr  na={name} key={name}><td>{name}</td><td>hi</td></tr>;
+                        return (
+                            <tr  na={name} key={name}  onClick={(event)=>this.attributeClicked(event, name)}>
+                                <td>{name}</td>
+                                <td>hi</td>
+                            </tr>);
                     }).bind(this));
 
         this.setState({
@@ -59,8 +63,11 @@ export class AttributeSearchTool extends React.Component {
         event.preventDefault();
     }
 
-    attributeClicked(event) {
-        console.log(event.target);
+    attributeClicked(event, name) {
+        if (this.state.searchString !== "") {
+            this.props.history.push("/configure/attributes/"+name);
+        }
+        event.preventDefault();
     }
 
     render () {
@@ -83,7 +90,7 @@ export class AttributeSearchTool extends React.Component {
                                 <th>Results</th>
                             </tr>
                         </thead>
-                        <tbody onClick={(event)=>this.attributeClicked(event)}>
+                        <tbody>
                             {this.state.resultsTable}
                         </tbody>
                     </table>
@@ -95,5 +102,6 @@ export class AttributeSearchTool extends React.Component {
 
 AttributeSearchTool.propTypes = {
     barStyle: PropTypes.object,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    history: PropTypes.object
 };

@@ -11,49 +11,10 @@ export class SearchBar extends React.Component {
             advancedState: "asHidden",
             normalSearch: true,
             advancedButton: "glyphicon glyphicon-menu-down",
-            searchString: {
-                "success": true,
-                "result": [
-                    {
-                        "id": 1,
-                        "name": "MAC Address",
-                        "regex": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
-                        "required": false,
-                        "unique": true,
-                        "public": true,
-                        "helpText": "A media access control address (MAC address) of a device is a unique identifier assigned to network interfaces for communications",
-                        "createdAt": "2018-01-27T01:17:26.457Z",
-                        "updatedAt": "2018-01-27T01:17:26.457Z"
-                    },
-                    {
-                        "id": 2,
-                        "name": "Serial Number",
-                        "regex": null,
-                        "required": null,
-                        "unique": null,
-                        "public": true,
-                        "helpText": "string",
-                        "createdAt": "2018-01-27T01:45:28.488Z",
-                        "updatedAt": "2018-01-27T01:45:28.488Z"
-                    },
-                    {
-                        "id": 4,
-                        "name": null,
-                        "regex": null,
-                        "required": null,
-                        "unique": null,
-                        "public": null,
-                        "helpText": "",
-                        "createdAt": "2018-01-27T01:51:41.174Z",
-                        "updatedAt": "2018-01-27T01:51:41.174Z"
-                    }
-                ]
-            }
         };
     }
 
     onHandleSearchChange(event) {
-        console.log(this.state.db_response);
         this.setState({
             searchString: event.target.value
         });

@@ -18,8 +18,8 @@ class App extends React.Component {
                     <Header/>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/search/:searchString" render={(...props)=><SearchResults {...props}/>}/>
-                    <Route exact path="/manage/attributes" component={ManageAttributes}/>
-                    <Route exact path="/manage" component={ManageAttributes}/>
+                    <Route exact path="/configure/attributes" component={ManageAttributes}/>
+                    <Route exact path="/configure" component={ManageAttributes}/>
                 </div>
             </Router>
         );
