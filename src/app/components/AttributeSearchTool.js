@@ -7,6 +7,8 @@ import React from "react";
 import PropTypes from "prop-types";
 require("../css/AttributeSearchToolStyle.css");
 
+let dao = require("../dao.js");
+
 var BASE_URL = "https://ims-backend.mybluemix.net"
 
 export class AttributeSearchTool extends React.Component {
@@ -28,18 +30,16 @@ export class AttributeSearchTool extends React.Component {
 
     searchButtonClicked(event) {
         var ref = this;
-        var url = BASE_URL + "/attribute?q=" + this.state.searchString;
-        fetch(url, {method: 'GET'}).then(res => res.json())
-            .catch(function(error) {
-                throw new Error('Network response was not ok:', response.status);
-            })
-            .then(function(response) {
+
+        dao.getAttributeByName(this.state.searchString, function(error, response) {
+            if (error != null) {
+                console.log(error);
+            } else {
                 ref.setState({
                 db_response: response
                 })
-
-                console.log('Success:', ref.state.db_response);
-            });
+            }
+        });
 
         var numEls = this.state.db_response.result.length;
         var namesList = [];
