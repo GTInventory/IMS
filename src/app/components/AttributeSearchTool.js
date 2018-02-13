@@ -9,8 +9,6 @@ require("../css/AttributeSearchToolStyle.css");
 
 let dao = require("../dao.js");
 
-var BASE_URL = "https://ims-backend.mybluemix.net"
-
 export class AttributeSearchTool extends React.Component {
     constructor() {
         super();
