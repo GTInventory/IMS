@@ -8,7 +8,7 @@ import React from "react";
 import PropTypes from "prop-types";
 require("../css/ManageAttributesStyle.css");
 
-var BASE_URL = "https://ims-backend.mybluemix.net"
+let dao = require("../dao.js");
 
 import {SearchBar} from "./SearchBar";
 import {AttributeSearchTool} from "./AttributeSearchTool";
@@ -45,29 +45,15 @@ export class ManageAttributes extends React.Component {
     }
 
     handleSubmit(event) {
-        // console.log(this.state.visible);
-        // console.log(this.state.attributeType);
-        // console.log(this.state.attributeName);
-
         //TODO: Check if attribute already exists in database before adding
 
-        var data = {
-            name: this.state.attributeName,
-            public: this.state.visible,
-            type: this.state.attributeType
-        }
-
-        var url = BASE_URL + "/attribute"
-
-        fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: new Headers({
-            'Content-Type': 'application/json'
-          })
-        }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
+        dao.createAttribute(this.state.attributeName, this.state.attributeType, this.state.visible, function(error, response) {
+            if (error == null) {
+                console.log(error);
+            } else {
+                console.log(response);
+            }
+        });
 
         event.preventDefault();
     }
