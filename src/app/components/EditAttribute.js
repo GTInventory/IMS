@@ -1,14 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+require("../css/EditAttributeStyle.css");
 
 export class EditAttribute extends React.Component {
     render() {
-        var searchString = this.props[0].match.params.searchString;
+        var searchString = this.props[0].match;
         var attribute = this.props[0].history.location.state;
+        console.log(searchString);
         console.log(attribute);
+        //TODO: if user chooses to go to website through URL directly,
+        // search for attribute name from URL bar.
         return (
             <div>
-                <h1 id="searchResultsTitle">Search Results</h1>
+                <h1 id="EditAttributeTitle">{attribute.name}</h1>
                 <div id="resultsList">
                     <h3>Computer</h3>
                     <table className="table table-hover">
@@ -21,19 +25,19 @@ export class EditAttribute extends React.Component {
                         <tbody>
                             <tr>
                                 <td>PC-7</td>
-                                <td>{searchString}</td>
+                                <td>0</td>
                             </tr>
                             <tr>
                                 <td>PC-13</td>
-                                <td>{searchString}</td>
+                                <td>0</td>
                             </tr>
                             <tr>
                                 <td>PC-14</td>
-                                <td>{searchString}</td>
+                                <td>0</td>
                             </tr>
                             <tr>
                                 <td>PC-20</td>
-                                <td>{searchString}</td>
+                                <td>0</td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,7 +55,7 @@ export class EditAttribute extends React.Component {
                             <tr>
                                 <td>Dell</td>
                                 <td>24</td>
-                                <td>{searchString}</td>
+                                <td>0</td>
                             </tr>
                         </tbody>
                     </table>
