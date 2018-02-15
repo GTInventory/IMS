@@ -40,16 +40,16 @@ export class AttributeSearchTool extends React.Component {
         });
 
         var numEls = this.state.db_response.result.length;
-        var namesList = [];
+        var attributesList = [];
         for (var i = 0; i < numEls; i++) {
-            namesList.push(this.state.db_response.result[i].name);
+            attributesList.push(this.state.db_response.result[i]);
         }
-
-        var results = namesList.map((function(name){
+        console.log(attributesList);
+        var results = attributesList.map((function(attribute){
                         return (
-                            <tr  na={name} key={name}  onClick={(event)=>this.attributeClicked(event, name)}>
-                                <td>{name}</td>
-                                <td>hi</td>
+                            <tr  na={attribute.name} key={attribute.name}  onClick={(event)=>this.attributeClicked(event, attribute)}>
+                                <td>{attribute.name}</td>
+                                <td>{attribute.type}</td>
                             </tr>);
                     }).bind(this));
 
@@ -61,9 +61,9 @@ export class AttributeSearchTool extends React.Component {
         event.preventDefault();
     }
 
-    attributeClicked(event, name) {
+    attributeClicked(event, attribute) {
         if (this.state.searchString !== "") {
-            this.props.history.push("/configure/attributes/"+name);
+            this.props.history.push("/configure/attributes/"+attribute.name, attribute);
         }
         event.preventDefault();
     }
