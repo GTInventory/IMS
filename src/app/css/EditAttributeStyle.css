@@ -3,4 +3,27 @@
     text-align:center;
     vertical-align: middle;
     padding-top: 1em;
+    padding-right: 1em;
+}
+
+#editAttribute {
+    width: 4em;
+    height: 3em;
+    padding: 0.5em 0px;
+    margin-top: 3em;
+    text-align: center;
+}
+
+#outerFormDiv {
+    text-align: center;
+}
+
+#innerFormDiv {
+     display: inline-block;
+     text-align: left;
+}
+
+#editForm {
+    text-align: left;
+    padding-top: 3em;
 }
