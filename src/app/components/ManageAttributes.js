@@ -47,8 +47,10 @@ export class ManageAttributes extends React.Component {
     handleSubmit(event) {
         //TODO: Check if attribute already exists in database before adding
 
+        console.log(this.state.visible);
+
         dao.createAttribute(this.state.attributeName, this.state.attributeType, this.state.visible, function(error, response) {
-            if (error == null) {
+            if (error != null) {
                 console.log(error);
             } else {
                 console.log(response);
