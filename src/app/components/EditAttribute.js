@@ -44,31 +44,31 @@ export class EditAttribute extends React.Component {
     handle
 
     handleTypeChange(event) {
-        this.state.setState({
+        this.setState({
             attributeType: event.target.value
         });
     }
 
     handleHelpChange(event){
-        this.state.setState({
+        this.setState({
             attributeHelp: event.target.value
         });
     }
 
     handleRequiredChange(event){
-        this.state.setState({
+        this.setState({
             attributeRequired: event.target.checked
         });
     }
 
     handleUniqueChange(event){
-        this.state.setState({
+        this.setState({
             attributeUnique: event.target.checked
         });
     }
 
     handlePublicChange(event){
-        this.state.setState({
+        this.setState({
             attributePublic: event.target.checked
         });
     }
