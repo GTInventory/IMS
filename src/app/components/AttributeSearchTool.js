@@ -41,7 +41,7 @@ export class AttributeSearchTool extends React.Component {
 
                 var results = namesList.map((function(name){
                                 return (
-                                    <tr  na={name} key={name}  onClick={(event)=>this.attributeClicked(event, name)}>
+                                    <tr  na={name} key={name}  onClick={(event)=>ref.attributeClicked(event, name)}>
                                         <td>{name}</td>
                                         <td>Lorem ipsem</td>
                                     </tr>);
