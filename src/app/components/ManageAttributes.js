@@ -29,7 +29,7 @@ export class ManageAttributes extends React.Component {
     handleSelectChange(event) {
         this.setState({
             attributeType: event.target.value
-        })
+        });
     }
 
     handleInputChange(event) {
