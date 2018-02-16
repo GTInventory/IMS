@@ -10,7 +10,7 @@ function postRequest(url, body) {
     return fetch(url, {
             method: 'POST',
             body: JSON.stringify(body),
-            mode: "*same-origin",
+            // mode: "*same-origin",
             headers: {
             "Content-Type": "application/json"
             }
@@ -24,7 +24,7 @@ module.exports = {
         let data = {
             "name": name,
             "type": type,
-            "visible": visible
+            "public": visible
         }
 
         postRequest(url, data)
