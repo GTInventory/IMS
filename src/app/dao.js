@@ -61,10 +61,18 @@ module.exports = {
     updateAttribute: function(attributeId, name, type, isPublic, callback) {
         let url = BASE_URL + "/attribute/" + attributeId;
 
-        let data = {
-            "name": name,
-            "type": type,
-            "public": isPublic
+        let data = {}
+
+        if (name) {
+            data["name"] = name;
+        }
+
+        if (type) {
+            data["type"] = type;
+        }
+
+        if (isPublic) {
+            data["public"] = isPublic;
         }
 
         postRequest(url, data)
