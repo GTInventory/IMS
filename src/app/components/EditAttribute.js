@@ -83,6 +83,7 @@ export class EditAttribute extends React.Component {
                                 if (error != null) {
                                     console.log(error);
                                 } else {
+                                    console.log("hi");
                                     ref.setState({
                                     db_response: response
                                     })
@@ -119,9 +120,8 @@ export class EditAttribute extends React.Component {
                             <fieldset disabled={this.state.editDisabled}>
                                 <label id="editFormLabel">
                                     Attribute Type:
-                                    <select value={this.state.value} onChange={(event) => this.handleSelectChange(event)} required>
+                                    <select value={this.state.value} onChange={(event) => this.handleTypeChange(event)} required>
                                         <option value="">{this.state.attribute.type}</option>
-                                        <option value="aType">Select an Attribute Type</option>
                                         <option value="Boolean">Boolean</option>
                                         <option value="Currency">Currency</option>
                                         <option value="Date/Time">Date/Time</option>
