@@ -33,32 +33,27 @@ export class AttributeSearchTool extends React.Component {
             if (error != null) {
                 console.log(error);
             } else {
-                ref.setState({
-                db_response: response
-                })
+                var numEls = response.result.length;
+                var namesList = [];
+                for (var i = 0; i < numEls; i++) {
+                    namesList.push(response.result[i].name);
+                }
+
+                var results = namesList.map((function(name){
+                                return (
+                                    <tr  na={name} key={name}  onClick={(event)=>this.attributeClicked(event, name)}>
+                                        <td>{name}</td>
+                                        <td>Lorem ipsem</td>
+                                    </tr>);
+                            }).bind(this));
+
+                    ref.setState({
+                        resultsTable: results,
+                        tableState: "asVisible"
+                    });
             }
+            event.preventDefault();
         });
-
-        var numEls = this.state.db_response.result.length;
-        var namesList = [];
-        for (var i = 0; i < numEls; i++) {
-            namesList.push(this.state.db_response.result[i].name);
-        }
-
-        var results = namesList.map((function(name){
-                        return (
-                            <tr  na={name} key={name}  onClick={(event)=>this.attributeClicked(event, name)}>
-                                <td>{name}</td>
-                                <td>hi</td>
-                            </tr>);
-                    }).bind(this));
-
-        this.setState({
-            resultsTable: results,
-            tableState: "asVisible"
-        });
-
-        event.preventDefault();
     }
 
     attributeClicked(event, name) {
