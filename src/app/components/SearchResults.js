@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+require("../css/SearchResultsStyle.css");
 
 import {SearchBar} from "./SearchBar";
 
