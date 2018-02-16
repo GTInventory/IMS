@@ -58,8 +58,14 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    updateAttribute: function(attributeId, name, type, visible, callback) {
+    updateAttribute: function(attributeId, name, type, isPublic, callback) {
         let url = BASE_URL + "/attribute/" + attributeId;
+
+        let data = {
+            "name": name,
+            "type": type,
+            "public": isPublic
+        }
 
         postRequest(url, data)
             .catch(error => callback(error))
