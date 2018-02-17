@@ -6,7 +6,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-//require("../css/ManageAttributesStyle.css");
+require("../css/configureEquipmentTypesStyle.css");
 
 let dao = require("../dao.js");
 
@@ -65,7 +65,7 @@ export class ConfigureEquipmentType extends React.Component {
             <div>
                 <SearchBar barStyle={styles.searchBar} placeholder="Search" history={this.props.history}/>
                 <div id="titleBlock">
-                    <h1 id="configureEquipmentTypeTitle">Configure Equipment Types</h1>
+                    <h1 id="configureEquipmentTypesTitle">Configure Equipment Types</h1>
                     <button id="addEquipmentType" className="btn btn-secondary" type="button" data-toggle="modal" data-target="#addModal">
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>
@@ -77,30 +77,14 @@ export class ConfigureEquipmentType extends React.Component {
                             <input name="enteraName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
                         </label>
                         <br />
-                        // <label>
-                        //     Attribute Type:
-                        //     <select value={this.state.value} onChange={(event) => this.handleSelectChange(event)}>
-                        //     <option value="aType">Select an Attribute Type</option>
-                        //     <option value="Boolean">Boolean</option>
-                        //     <option value="Currency">Currency</option>
-                        //     <option value="Date/Time">Date/Time</option>
-                        //     <option value="Enum">Enumerated set of options</option>
-                        //     <option value="Image">Image</option>
-                        //     <option value="Integer">Integer</option>
-                        //     <option value="String">String</option>
-                        //     <option value="Textbox">Textbox</option>
-                        //     </select>
-                        // </label>
+
                         <br />
                         <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search" history={this.props.history}/>
-                        // <label>
-                        //   Visible to Renter:
-                        //   <input name="visible" type="checkbox" onChange={(event) => this.handleCheckboxChange(event)} />
-                        // </label>
+
                         <br/>
                     </form>
                 </Modal>
-                // <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search" history={this.props.history}/>
+                <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Equipment Type Search" history={this.props.history}/>
             </div>
         );
     }
