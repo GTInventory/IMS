@@ -11,9 +11,11 @@ require("../css/configureEquipmentTypesStyle.css");
 let dao = require("../dao.js");
 
 import {SearchBar} from "./SearchBar";
-import {EquipmentTypeSearchTool} from "./EquipmentTypeSearchTool";
+import {EquipmentTypeAttributeList} from "./EquipmentTypeAttributeList";
 import {EquipmentTypeAttributeSearchTool} from "./EquipmentTypeAttributeSearchTool";
+import {EquipmentTypeSearchTool} from "./EquipmentTypeSearchTool";
 import {Modal} from "./Modal";
+import {arrayMove} from  'react-sortable-hoc';
 //import {freeForm} from "./freeForm";
 
 export class ConfigureEquipmentType extends React.Component {
@@ -24,6 +26,7 @@ export class ConfigureEquipmentType extends React.Component {
             //visible: false,
             //attributeType: "",
             equipmentTypeName: "",
+            items: [],
         };
     }
 
@@ -50,16 +53,26 @@ export class ConfigureEquipmentType extends React.Component {
 
         console.log(this.state.visible);
 
-        dao.createEquipmentType(this.state.equipmentTypeName, function(error, response) {
+        /* dao.createEquipmentType(this.state.equipmentTypeName, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
                 console.log(response);
             }
-        });
+        }); */
 
         event.preventDefault();
     }
+
+    handleAddAttribute(event, attribute) {
+        var newList = this.state.items.slice();
+        newList.push(attribute);
+        this.setState({items:newList});
+    }
+
+    onSortEnd = ({oldIndex, newIndex}) => {
+        this.setState({items: arrayMove(this.state.items, oldIndex, newIndex)});
+    };
 
     render() {
         return (
@@ -71,21 +84,19 @@ export class ConfigureEquipmentType extends React.Component {
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
-                <Modal mtitle = "Add Equipment Type" handleSave={this.handleSubmit.bind(this)}>
+                <Modal mtitle = "Add Equipment Type" handleSave={this.handleSubmit.bind(this)} style={{position:'relative'}} >
                     <form>
                         <label>
                             Equipment Type Name:
                             <input name="enteraName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
                         </label>
                         <br />
-
-
-
-                        <br />
-                        <EquipmentTypeAttributeSearchTool barStyle={styles.equipmentTypeAttributeSearchBar} placeholder="Attribute Search" history={this.props.history}/>
-
-                        <br/>
                     </form>
+                    <EquipmentTypeAttributeList items={this.state.items} handleOnSortEnd={this.onSortEnd}/>
+                    <br />
+                    <EquipmentTypeAttributeSearchTool barStyle={styles.equipmentTypeAttributeSearchBar} placeholder="Attribute Search"
+                            history={this.props.history} handleAddAttribute={this.handleAddAttribute.bind(this)} />
+                    <br/>
                 </Modal>
                 <EquipmentTypeSearchTool barStyle={styles.equipmentTypeSearchBar} placeholder="Equipment Type Search" history={this.props.history}/>
                 <br/>
@@ -95,7 +106,7 @@ export class ConfigureEquipmentType extends React.Component {
 }
 
 ConfigureEquipmentType.propTypes = {
-    history: PropTypes.object
+    history: PropTypes.object,
 };
 
 const styles = {};

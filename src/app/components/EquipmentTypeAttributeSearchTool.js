@@ -43,7 +43,7 @@ export class EquipmentTypeAttributeSearchTool extends React.Component {
 
 				var results = attributesList.map((function(attribute){
 								return (
-									<tr  na={attribute.name} key={attribute.name}  onClick={(event)=>ref.attributeClicked(event, attribute)}>
+									<tr na={attribute.name} key={attribute.name} onClick={(event)=>ref.attributeClicked(event, attribute)}>
 										<td>{attribute.name}</td>
 										<td>{attribute.type}</td>
 									</tr>);
@@ -60,7 +60,7 @@ export class EquipmentTypeAttributeSearchTool extends React.Component {
     }
 
     attributeClicked(event, attribute) {
-        // TODO: this should add the attribute to equipment type's list
+        this.props.handleAddAttribute(event, attribute);
         event.preventDefault();
     }
 
@@ -98,5 +98,6 @@ export class EquipmentTypeAttributeSearchTool extends React.Component {
 EquipmentTypeAttributeSearchTool.propTypes = {
     barStyle: PropTypes.object,
     placeholder: PropTypes.string,
-    history: PropTypes.object
+    history: PropTypes.object,
+    handleAddAttribute: PropTypes.func,
 };

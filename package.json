@@ -27,6 +27,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.9",
     "prop-types": "^15.6.0",
+    "react-sortable-hoc": "^0.6.7",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"

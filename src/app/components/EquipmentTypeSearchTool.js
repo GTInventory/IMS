@@ -16,7 +16,7 @@ export class EquipmentTypeSearchTool extends React.Component {
             tableState: "asHidden",
             searchString: "",
             db_response: "",
-            resultsTable: ""
+            resultsTable: "",
         };
     }
 
