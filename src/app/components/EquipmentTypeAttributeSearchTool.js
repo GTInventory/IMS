@@ -1,15 +1,17 @@
 /*
     This component includes both an attribute search bar and the generated
-    table of closest matching attributes.
+    table of closest matching attributes. It differs from the AttributeSearchTool
+    because this is for use when adding and Equipment Type, so it does not share
+    all of its functionality.
  */
 
 import React from "react";
 import PropTypes from "prop-types";
-require("../css/AttributeSearchToolStyle.css");
+require("../css/EquipmentTypeAttributeSearchToolStyle.css");
 
 let dao = require("../dao.js");
 
-export class AttributeSearchTool extends React.Component {
+export class EquipmentTypeAttributeSearchTool extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -29,7 +31,7 @@ export class AttributeSearchTool extends React.Component {
     searchButtonClicked(event) {
         var ref = this;
 
-        dao.getAttributeByName(this.state.searchString, function(error, response) {
+        dao.getAttributeAll(function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
@@ -58,9 +60,7 @@ export class AttributeSearchTool extends React.Component {
     }
 
     attributeClicked(event, attribute) {
-        if (this.state.searchString !== "") {
-            this.props.history.push("/configure/attributes/"+attribute.name, attribute);
-        }
+        // TODO: this should add the attribute to equipment type's list
         event.preventDefault();
     }
 
@@ -95,7 +95,7 @@ export class AttributeSearchTool extends React.Component {
     }
 }
 
-AttributeSearchTool.propTypes = {
+EquipmentTypeAttributeSearchTool.propTypes = {
     barStyle: PropTypes.object,
     placeholder: PropTypes.string,
     history: PropTypes.object

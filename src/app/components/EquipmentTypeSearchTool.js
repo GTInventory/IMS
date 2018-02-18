@@ -1,15 +1,15 @@
 /*
-    This component includes both an attribute search bar and the generated
-    table of closest matching attributes.
+    This component includes both an equipment type search bar and the generated
+    table of closest matching equpment types.
  */
 
 import React from "react";
 import PropTypes from "prop-types";
-require("../css/AttributeSearchToolStyle.css");
+require("../css/EquipmentTypeSearchToolStyle.css");
 
 let dao = require("../dao.js");
 
-export class AttributeSearchTool extends React.Component {
+export class EquipmentTypeSearchTool extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -29,21 +29,20 @@ export class AttributeSearchTool extends React.Component {
     searchButtonClicked(event) {
         var ref = this;
 
-        dao.getAttributeByName(this.state.searchString, function(error, response) {
+        dao.getEquipmentTypeAll(function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
                 var numEls = response.result.length;
-				var attributesList = [];
+				var equipmentTypeList = [];
 				for (var i = 0; i < numEls; i++) {
-					attributesList.push(response.result[i]);
+					equipmentTypeList.push(response.result[i]);
 				}
 
-				var results = attributesList.map((function(attribute){
+				var results = equipmentTypeList.map((function(equipmentType){
 								return (
-									<tr  na={attribute.name} key={attribute.name}  onClick={(event)=>ref.attributeClicked(event, attribute)}>
-										<td>{attribute.name}</td>
-										<td>{attribute.type}</td>
+									<tr  na={equipmentType.name} key={equipmentType.name}  onClick={(event)=>ref.equipmentTypeClicked(event, equipmentType)}>
+										<td>{equipmentType.name}</td>
 									</tr>);
 							}).bind(this));
 
@@ -57,9 +56,9 @@ export class AttributeSearchTool extends React.Component {
 		event.preventDefault();
     }
 
-    attributeClicked(event, attribute) {
+    equipmentTypeClicked(event, equipmentType) {
         if (this.state.searchString !== "") {
-            this.props.history.push("/configure/attributes/"+attribute.name, attribute);
+            this.props.history.push("/configure/equipmentTypes/"+equipmentType.name, equipmentType);
         }
         event.preventDefault();
     }
@@ -81,8 +80,7 @@ export class AttributeSearchTool extends React.Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Type</th>
+                                <th>Results</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,7 +93,7 @@ export class AttributeSearchTool extends React.Component {
     }
 }
 
-AttributeSearchTool.propTypes = {
+EquipmentTypeSearchTool.propTypes = {
     barStyle: PropTypes.object,
     placeholder: PropTypes.string,
     history: PropTypes.object

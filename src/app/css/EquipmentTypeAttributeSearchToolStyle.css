@@ -1,0 +1,8 @@
+#asHidden {
+    display: none;
+}
+
+#asVisible {
+    display: block;
+    width: 30em;
+}

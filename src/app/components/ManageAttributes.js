@@ -65,7 +65,7 @@ export class ManageAttributes extends React.Component {
             <div>
                 <SearchBar barStyle={styles.searchBar} placeholder="Search" history={this.props.history}/>
                 <div id="titleBlock">
-                    <h1 id="manageAttributesTitle">Manage Attributes</h1>
+                    <h1 id="manageAttributesTitle">Configure Attributes</h1>
                     <button id="addAttribute" className="btn btn-secondary" type="button" data-toggle="modal" data-target="#addModal">
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>

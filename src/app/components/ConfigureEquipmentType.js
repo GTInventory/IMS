@@ -1,7 +1,7 @@
 /*
-    The manage attributes page allows for a user to add new attributes to the
-    system. The ManageAttributes component makes use of an AttributeSearchTool
-    that handles searching for existing attributes in the system.
+    The configure equipment types page allows for a user to add new equipment to the
+    system. The ConfigureEquipmentType component makes use of an EquipmentTypeSearchTool
+    that handles searching for existing equipment types in the system.
  */
 
 import React from "react";
@@ -11,7 +11,8 @@ require("../css/configureEquipmentTypesStyle.css");
 let dao = require("../dao.js");
 
 import {SearchBar} from "./SearchBar";
-import {AttributeSearchTool} from "./AttributeSearchTool";
+import {EquipmentTypeSearchTool} from "./EquipmentTypeSearchTool";
+import {EquipmentTypeAttributeSearchTool} from "./EquipmentTypeAttributeSearchTool";
 import {Modal} from "./Modal";
 //import {freeForm} from "./freeForm";
 
@@ -22,15 +23,15 @@ export class ConfigureEquipmentType extends React.Component {
             isOpen: false,
             //visible: false,
             //attributeType: "",
-            equipmentTypeName: ""
+            equipmentTypeName: "",
         };
     }
 
-    handleSelectChange(event) {
+    /* handleSelectChange(event) {
         this.setState({
             attributeType: event.target.value
         });
-    }
+    } */
 
     handleInputChange(event) {
         this.setState({
@@ -45,11 +46,11 @@ export class ConfigureEquipmentType extends React.Component {
     // }
 
     handleSubmit(event) {
-        //TODO: Check if attribute already exists in database before adding
+        //TODO: Check if equipment type already exists in database before adding
 
         console.log(this.state.visible);
 
-        dao.createAttribute(this.state.attributeName, this.state.attributeType, this.state.visible, function(error, response) {
+        dao.createEquipmentType(this.state.equipmentTypeName, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
@@ -78,13 +79,16 @@ export class ConfigureEquipmentType extends React.Component {
                         </label>
                         <br />
 
+
+
                         <br />
-                        <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Attribute Search" history={this.props.history}/>
+                        <EquipmentTypeAttributeSearchTool barStyle={styles.equipmentTypeAttributeSearchBar} placeholder="Attribute Search" history={this.props.history}/>
 
                         <br/>
                     </form>
                 </Modal>
-                <AttributeSearchTool barStyle={styles.attributeSearchBar} placeholder="Equipment Type Search" history={this.props.history}/>
+                <EquipmentTypeSearchTool barStyle={styles.equipmentTypeSearchBar} placeholder="Equipment Type Search" history={this.props.history}/>
+                <br/>
             </div>
         );
     }
@@ -102,7 +106,13 @@ styles.searchBar = {
     paddingTop: '2em'
 }
 
-styles.attributeSearchBar = {
+styles.equipmentTypeAttributeSearchBar = {
+    margin: '0 auto',
+    width: '30em',
+    paddingTop: '5em'
+}
+
+styles.equipmentTypeSearchBar = {
     margin: '0 auto',
     width: '30em',
     paddingTop: '5em'
