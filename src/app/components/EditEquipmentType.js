@@ -1,5 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {EquipmentTypeAttributeList} from "./EquipmentTypeAttributeList";
+import {EquipmentTypeAttributeSearchTool} from "./EquipmentTypeAttributeSearchTool";
+import {EquipmentTypeSearchTool} from "./EquipmentTypeSearchTool";
+import {arrayMove} from  'react-sortable-hoc';
 require("../css/EditAttributeStyle.css");
 
 let dao = require("../dao.js");
@@ -19,7 +23,8 @@ export class EditEquipmentType extends React.Component {
             editDisabled: true,
             equipmentType: equip,
             editText: "Edit",
-            // attributeHelp: "",
+            equipmentTypeHelp: "",
+            items: [],
             // attributeType: "",
             // attributeRequired: "",
             // attributeUnique: "",
@@ -43,35 +48,45 @@ export class EditEquipmentType extends React.Component {
 
     handle
 
-    /* handleTypeChange(event) {
-        this.setState({
-            attributeType: event.target.value
-        });
-    }
+    //  handleTypeChange(event) {
+    //     this.setState({
+    //         attributeType: event.target.value
+    //     });
+    // }
 
     handleHelpChange(event){
         this.setState({
-            attributeHelp: event.target.value
+            equipmentTypeHelp: event.target.value
         });
     }
 
-    handleRequiredChange(event){
-        this.setState({
-            attributeRequired: event.target.checked
-        });
+    handleAddAttribute(event, attribute) {
+        var newList = this.state.items.slice();
+        newList.push(attribute);
+        this.setState({items:newList});
     }
 
-    handleUniqueChange(event){
-        this.setState({
-            attributeUnique: event.target.checked
-        });
-    }
+    onSortEnd = ({oldIndex, newIndex}) => {
+        this.setState({items: arrayMove(this.state.items, oldIndex, newIndex)});
+    };
 
-    handlePublicChange(event){
-        this.setState({
-            attributePublic: event.target.checked
-        });
-    } */
+    // handleRequiredChange(event){
+    //     this.setState({
+    //         attributeRequired: event.target.checked
+    //     });
+    // }
+
+    // handleUniqueChange(event){
+    //     this.setState({
+    //         attributeUnique: event.target.checked
+    //     });
+    // }
+
+    // handlePublicChange(event){
+    //     this.setState({
+    //         attributePublic: event.target.checked
+    //     });
+    // } 
 
     handleSave(event) {
         // TODO: Create a popup to verify user wants to save.
@@ -107,8 +122,27 @@ export class EditEquipmentType extends React.Component {
                         {this.state.editText}
                     </button>
                 </div>
+                <div id="outerFormDiv">
+                    <div id="innerFormDiv">
+                        <form id="editForm">
+                            <fieldset disabled={this.state.editDisabled}>
+                                <label id="editFormLabel">
+                                    Help Text:
+                                    <input name="enteraName" type="textarea" placeholder={this.state.equipmentType.helpText} onChange={(event) => this.handleHelpChange(event)}/>
+                                </label>
+                            </fieldset>
+                            <br />
+                            <fieldset disabled={this.state.editDisabled}>
+                                <label id="editFormLabel">
+                                    <EquipmentTypeAttributeList items={this.state.items} handleOnSortEnd={this.onSortEnd}/>
+                                </label>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
 
             </div>
+
         );
     }
 }
