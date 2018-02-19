@@ -92,8 +92,8 @@ export class EditEquipmentType extends React.Component {
         // TODO: Create a popup to verify user wants to save.
 
         /* var ref = this;
-        dao.updateAttribute(this.state.attribute.id, this.state.attribute.name,
-                            this.state.attributeType, this.state.attributePublic,
+        dao.updateEquipmentType(this.state.equipmentType.id, this.state.attribute.name,
+                            this.state.items,
                             function(error, response) {
                                 if (error != null) {
                                     console.log(error);
@@ -134,7 +134,12 @@ export class EditEquipmentType extends React.Component {
                             <br />
                             <fieldset disabled={this.state.editDisabled}>
                                 <label id="editFormLabel">
-                                    <EquipmentTypeAttributeList items={this.state.items} handleOnSortEnd={this.onSortEnd}/>
+                                    <EquipmentTypeAttributeList items={this.state.items} handleOnSortEnd={this.onSortEnd} defaultValue={this.state.equipmentType.items}/>
+                                </label>
+                            </fieldset>
+                            <br />
+                            <fieldset disabled={this.state.editDisabled}>
+                                <label id="editFormLabel">
                                 </label>
                             </fieldset>
                         </form>
