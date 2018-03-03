@@ -10,6 +10,7 @@ import {PopUp} from "./components/Modal";
 import {EditAttribute} from "./components/EditAttribute";
 import {ConfigureEquipmentType} from "./components/ConfigureEquipmentType";
 import {EditEquipmentType} from "./components/EditEquipmentType";
+import {ConfigureEquipment} from "./components/ConfigureEquipment";
 //maybe delete this .js form
 //import {freeForm} from "./components/freeForm";
 
@@ -24,8 +25,9 @@ class App extends React.Component {
                     <Route exact path="/configure/attributes" component={ManageAttributes}/>
                     <Route exact path="/configure" component={ManageAttributes}/>
                     <Route exact path="/configure/attributes/:attributeName" render={(...props)=><EditAttribute {...props}/>}/>
-                    <Route exact path="/configure/EquipmentTypes" component={ConfigureEquipmentType}/>
+                    <Route exact path="/configure/equipmentTypes" component={ConfigureEquipmentType}/>
                     <Route exact path="/configure/equipmentTypes/:equipmentTypeName" render={(...props)=><EditEquipmentType {...props}/>}/>
+                    <Route exact path="/configure/equipment" component={ConfigureEquipment}/>
                 </div>
             </Router>
         );

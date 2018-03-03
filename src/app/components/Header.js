@@ -12,8 +12,8 @@ export const Header = () => {
                     <li className="dropdown"><a id="navItem" className="dropdown-toggle navItem" data-toggle="dropdown" href="#">Configure<span className="caret"></span></a>
                       <ul className="dropdown-menu">
                         <li><Link to={"/configure/attributes"}>Attributes</Link></li>
-                        <li><Link to={"/configure/equipment"}>Equipment</Link></li>
                         <li><Link to={"/configure/equipmentTypes"}>Equipment Types</Link></li>
+                        <li><Link to={"/configure/equipment"}>Equipment</Link></li>
                       </ul>
                     </li>
                 </ul>
