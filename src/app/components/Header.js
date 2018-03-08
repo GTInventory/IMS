@@ -12,10 +12,10 @@ export const Header = () => {
                     <li className="dropdown"><a id="navItem" className="dropdown-toggle navItem" data-toggle="dropdown" href="#">Configure<span className="caret"></span></a>
                       <ul className="dropdown-menu">
                         <li><Link to={"/configure/attributes"}>Attributes</Link></li>
-                        <li><Link to={"/configure/equipment"}>Equipment</Link></li>
                         <li><Link to={"/configure/equipmentTypes"}>Equipment Types</Link></li>
                       </ul>
                     </li>
+                    <li><Link to={"/configure/equipment"} id="navItem">Add Equipment</Link></li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li><Link to={"/Logout"} id="navItem"><span className="glyphicon glyphicon-log-out" id="navItem"></span> Logout</Link></li>
