@@ -13,9 +13,9 @@ export const Header = () => {
                       <ul className="dropdown-menu">
                         <li><Link to={"/configure/attributes"}>Attributes</Link></li>
                         <li><Link to={"/configure/equipmentTypes"}>Equipment Types</Link></li>
-                        <li><Link to={"/configure/equipment"}>Equipment</Link></li>
                       </ul>
                     </li>
+                    <li><Link to={"/configure/equipment"} id="navItem">Add Equipment</Link></li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li><Link to={"/Logout"} id="navItem"><span className="glyphicon glyphicon-log-out" id="navItem"></span> Logout</Link></li>

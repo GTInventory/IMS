@@ -7,6 +7,7 @@ let dao = require("../dao.js");
 import {SearchBar} from "./SearchBar";
 import {EquipmentSearchTool} from "./EquipmentSearchTool";
 import {Modal} from "./Modal";
+//import {EquipmentEquipmentTypeSearchTool} from "./EquipmentEquipmentTypeSearchTool";
 
 
 /*
@@ -69,7 +70,8 @@ export class ConfigureEquipment extends React.Component {
                 </div>
                 <Modal mtitle = "Add Equipment" handleSave={this.handleSubmit.bind(this)}>
                     <form>
-
+                    Equipment Name:
+                            <input name="enteraName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
                     </form>
                 </Modal>
                 <EquipmentSearchTool barStyle={styles.equipmentSearchBar} placeholder="Equipment Search" history={this.props.history}/>
