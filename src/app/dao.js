@@ -1,4 +1,4 @@
-const BASE_URL = "https://ims-backend.mybluemix.net"
+const BASE_URL = "https://ims-backend.mybluemix.net";
 
 function getRequest(url) {
     return fetch(url, {
@@ -17,14 +17,17 @@ function postRequest(url, body) {
 }
 
 module.exports = {
-    createAttribute: function(name, type, visible, callback) {
+    createAttribute: function(name, type, visible, unique, regex, placeholder, callback) {
         let url = BASE_URL + "/attribute";
 
         let data = {
             "name": name,
             "type": type,
-            "public": visible
-        }
+            "public": visible,
+            "unique": unique,
+            "regex": regex,
+            "helpText": placeholder
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -50,7 +53,7 @@ module.exports = {
     },
 
     getAttributeAll: function(callback) {
-        let url = BASE_URL + "/attribute/"
+        let url = BASE_URL + "/attribute/";
 
         getRequest(url)
             .then(res => res.json())
@@ -61,7 +64,7 @@ module.exports = {
     updateAttribute: function(attributeId, name, type, isPublic, callback) {
         let url = BASE_URL + "/attribute/" + attributeId;
 
-        let data = {}
+        let data = {};
 
         if (name) {
             data["name"] = name;
@@ -105,7 +108,7 @@ module.exports = {
             "name": name,
             "nameAttribute": nameAttribute,
             "available": available
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -119,7 +122,7 @@ module.exports = {
             "name": name,
             "nameAttribute": nameAttribute,
             "available": available
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -159,4 +162,4 @@ module.exports = {
             .catch(error => callback(error))
             .then(response => callback(null, response));
     }
-}
+};

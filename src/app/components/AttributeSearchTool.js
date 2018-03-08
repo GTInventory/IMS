@@ -41,7 +41,7 @@ export class AttributeSearchTool extends React.Component {
 
 				var results = attributesList.map((function(attribute){
 								return (
-									<tr  na={attribute.name} key={attribute.name}  onClick={(event)=>ref.attributeClicked(event, attribute)}>
+									<tr  na={attribute.name} key={attribute.name} onClick={(event)=>ref.attributeClicked(event, attribute)}>
 										<td>{attribute.name}</td>
 										<td>{attribute.type}</td>
 									</tr>);
@@ -85,9 +85,7 @@ export class AttributeSearchTool extends React.Component {
                                 <th>Type</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {this.state.resultsTable}
-                        </tbody>
+                        <tbody>{this.state.resultsTable}</tbody>
                     </table>
                 </div>
             </div>
