@@ -99,7 +99,8 @@ export class EditAttribute extends React.Component {
 
         var ref = this;
         dao.updateAttribute(this.state.attribute.id, this.state.attribute.name,
-                            this.state.attributeType, this.state.attributePublic,
+        	this.state.attributeType, this.state.attributePublic,
+        	this.state.attributeUniqueGlobally, this.state.regex, this.state.attributeHelp, //TODO: pick up here
                             function(error, response) {
                                 if (error != null) {
                                     console.log(error);
