@@ -22,7 +22,7 @@ export class Modal extends React.Component {
                 {this.props.children}
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-secondary" onClick={this.props.handleClose} data-dismiss="modal">Close</button>
                 <button type="button" className="btn btn-primary" onClick={this.props.handleSave} data-dismiss="modal">Save</button>
               </div>
             </div>
@@ -35,5 +35,6 @@ export class Modal extends React.Component {
 Modal.propTypes = {
   mtitle: PropTypes.string,
   handleSave: PropTypes.func,
+  handleClose: PropTypes.func,
   children: PropTypes.node
 };

@@ -1,15 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-require("../css/EditAttributeStyle.css");
-
-let dao = require("../dao.js");
-
 /*
     The edit attribute page is dynamically created when a user clicks on an
     attribute from the attribute search tool. A user can also navigate to this
     page themselves. In this case, the page is created after finding a match
     in the database.
  */
+
+import React from "react";
+import PropTypes from "prop-types";
+require("../css/EditAttributeStyle.css");
+
+let dao = require("../dao.js");
+
 export class EditAttribute extends React.Component {
     constructor(props) {
         super(props);
@@ -20,32 +21,58 @@ export class EditAttribute extends React.Component {
             attribute: attr,
             editText: "Edit",
             attributeHelp: "",
-            attributeType: "",
-            attributeRequired: "",
-            attributeUnique: "",
-            attributePublic: ""
+            attributeType: attr.type,
+            attributeUniqueGlobally: "",
+            attributePublic: "",
+            regex: ""
         };
     }
 
     editToggle(event) {
         if (this.state.editDisabled) {
+        	// Change to Edit mode
             this.setState({
                 editDisabled: false,
                 editText: "Cancel"
             });
         } else {
+        	// Cancel Edit mode
             this.setState({
                 editDisabled: true,
                 editText: "Edit"
             });
+            this.resetForm();
         }
     }
 
-    handle
+    resetForm() {
+    	this.refs.helpText.value = this.state.attribute.helpText;
+    	this.refs.regex.value = this.state.attribute.regex;
+    	// Show/hide regex field
+    	if ((this.refs.aType.value = this.state.attribute.type) == "String") {
+    		regexDiv.style.display = "";
+    	} else {
+            regexDiv.style.display = "none";
+    	}
+    	this.refs.uniqueGlobally.checked = this.state.attribute.uniqueGlobally;
+    	this.refs.visible.checked = this.state.attribute.public;
+    }
 
     handleTypeChange(event) {
         this.setState({
             attributeType: event.target.value
+        });
+        // Show/hide regex field based on attributeType
+        if (event.target.value == "String") {
+            regexDiv.style.display = "";
+        } else {
+            regexDiv.style.display = "none";
+        }
+    }
+
+    handleRegexChange(event) {
+        this.setState({
+            regex: event.target.value
         });
     }
 
@@ -55,15 +82,9 @@ export class EditAttribute extends React.Component {
         });
     }
 
-    handleRequiredChange(event){
-        this.setState({
-            attributeRequired: event.target.checked
-        });
-    }
-
     handleUniqueChange(event){
         this.setState({
-            attributeUnique: event.target.checked
+            attributeUniqueGlobally: event.target.checked
         });
     }
 
@@ -83,10 +104,9 @@ export class EditAttribute extends React.Component {
                                 if (error != null) {
                                     console.log(error);
                                 } else {
-                                    console.log("hi");
                                     ref.setState({
-                                    db_response: response
-                                    })
+                                        db_response: response
+                                    });
                                 }
         });
     }
@@ -95,9 +115,20 @@ export class EditAttribute extends React.Component {
         // TODO: Create a popup to tell user of consequences
     }
 
-    render() {
+    handleBack(event) {
+        window.location = '/configure/attributes';
+    }
 
-        //TODO: if user chooses to go to website through URL directly,
+    render() {
+    	// To initially show/hide regex field based on attribute type
+    	let regexStyle = null;
+    	if (this.state.attributeType == "String") {
+            regexStyle = {display:""};
+        } else {
+            regexStyle = {display:"none"};
+        }
+
+        // TODO: if user chooses to go to website through URL directly,
         // search for attribute name from URL bar.
         return (
             <div>
@@ -113,15 +144,12 @@ export class EditAttribute extends React.Component {
                             <fieldset disabled={this.state.editDisabled}>
                                 <label id="editFormLabel">
                                     Help Text:
-                                    <input name="enteraName" type="textarea" placeholder={this.state.attribute.helpText} onChange={(event) => this.handleHelpChange(event)}/>
+                                    <input name="helpText" ref="helpText" type="textarea" defaultValue={this.state.attribute.helpText} onChange={(event) => this.handleHelpChange(event)}/>
                                 </label>
-                            </fieldset>
-                            <br/>
-                            <fieldset disabled={this.state.editDisabled}>
+                            	<br/>
                                 <label id="editFormLabel">
                                     Attribute Type:
-                                    <select value={this.state.value} onChange={(event) => this.handleTypeChange(event)} required>
-                                        <option value="">{this.state.attribute.type}</option>
+                                    <select defaultValue={this.state.attributeType} ref="aType" onChange={(event) => this.handleTypeChange(event)} required>
                                         <option value="Boolean">Boolean</option>
                                         <option value="Currency">Currency</option>
                                         <option value="Date/Time">Date/Time</option>
@@ -132,30 +160,26 @@ export class EditAttribute extends React.Component {
                                         <option value="Textbox">Textbox</option>
                                     </select>
                                 </label>
-                            </fieldset>
-                            <br/>
-                            <fieldset disabled={this.state.editDisabled}>
+                                <br/>
+                            	<div id="regexDiv" style={regexStyle} >
+	                                <label>
+	                                    Regex:
+	                                    <input name="regex" ref="regex" type="textarea" defaultValue={this.state.attribute.regex} onChange={(event) => this.handleRegexChange(event)} />
+	                                </label>
+                            	</div>
                                 <label id="editFormLabel">
-                                  Required:
-                                  <input name="visible" type="checkbox" defaultChecked={this.state.attribute.required} onChange={(event) => this.handleRequiredChange(event)}/>
+                                  Globally Unique:
+                                  <input name="uniqueGlobally" ref="uniqueGlobally" type="checkbox" defaultChecked={this.state.attribute.uniqueGlobally} onChange={(event) => this.handleUniqueChange(event)} />
                                 </label>
-                            </fieldset>
-                            <br/>
-                            <fieldset disabled={this.state.editDisabled}>
+                            	<br/>
                                 <label id="editFormLabel">
-                                  Unique:
-                                  <input name="visible" type="checkbox" defaultChecked={this.state.attribute.unique} onChange={(event) => this.handleUniqueChange(event)} />
+                                  Visible to Renter:
+                                  <input name="visible" ref="visible" type="checkbox" defaultChecked={this.state.attribute.public} onChange={(event) => this.handlePublicChange(event)} />
                                 </label>
-                            </fieldset>
-                            <br/>
-                            <fieldset disabled={this.state.editDisabled}>
-                                <label id="editFormLabel">
-                                  Public:
-                                  <input name="visible" type="checkbox" defaultChecked={this.state.attribute.public} onChange={(event) => this.handlePublicChange(event)} />
-                                </label>
-                            </fieldset>
+                        	</fieldset>
                             <button type="button" className="btn btn-primary" onClick={(event) => this.handleSave(event)}>Save</button>
                             <button type="button" className="btn btn-danger" onClick={(event) => this.handleDelete(event)}>Delete</button>
+                            <button type="button" className="btn btn-secondary" onClick={(event) => this.handleBack(event)}>Back</button>
                         </form>
                     </div>
                 </div>

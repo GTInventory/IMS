@@ -18,7 +18,7 @@ import {Modal} from "./Modal";
 
 const initialState = {
     isOpen: false,
-    unique: false,
+    uniqueGlobally: false,
     visible: false,
     attributeType: "aType",
     attributeName: "",
@@ -58,7 +58,7 @@ export class ManageAttributes extends React.Component {
 
     handleCheckboxChangeUnique(event) {
         this.setState({
-            unique: event.target.checked
+            uniqueGlobally: event.target.checked
         });
     }
 
@@ -74,11 +74,11 @@ export class ManageAttributes extends React.Component {
         });
     }
 
-    resetform() {
+    resetForm() {
         this.refs.aName.value = "";
         this.refs.regex.value = "";
         this.refs.placeholder.value = "";
-        this.refs.unique.checked = "";
+        this.refs.uniqueGlobally.checked = "";
         this.refs.visible.checked = "";
         this.setState(initialState);
         regexDiv.style.display = "none";
@@ -97,7 +97,7 @@ export class ManageAttributes extends React.Component {
         }
 
         dao.createAttribute(this.state.attributeName, this.state.attributeType,
-            this.state.visible, this.state.unique, this.state.regex,
+            this.state.visible, this.state.uniqueGlobally, this.state.regex,
             this.state.placeholder, function(error, response) {
             if (error != null) {
                 console.log(error);
@@ -106,7 +106,7 @@ export class ManageAttributes extends React.Component {
             }
         });
 
-        this.resetform();
+        this.resetForm();
 
         event.preventDefault();
     }
@@ -121,7 +121,7 @@ export class ManageAttributes extends React.Component {
                         <span className="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
-                <Modal mtitle = "Add Attribute" handleSave={this.handleSubmit.bind(this)}>
+                <Modal mtitle = "Add Attribute" handleSave={this.handleSubmit.bind(this)} handleClose={this.resetForm.bind(this)} >
                     <form>
                         <label>
                             Attribute Name:
@@ -155,8 +155,8 @@ export class ManageAttributes extends React.Component {
                         </label>
                         <br/>
                         <label>
-                          Unique:
-                          <input name="unique" ref="unique" type="checkbox" onChange={(event) => this.handleCheckboxChangeUnique(event)} />
+                          Globally Unique:
+                          <input name="uniqueGlobally" ref="uniqueGlobally" type="checkbox" onChange={(event) => this.handleCheckboxChangeUnique(event)} />
                         </label>
                         <br/>
                         <label>

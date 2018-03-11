@@ -18,6 +18,9 @@ export class EquipmentTypeSearchTool extends React.Component {
             db_response: "",
             resultsTable: "",
         };
+
+        // This makes all equipment types load in results table on page render
+        this.getSearchResults();
     }
 
     onHandleSearchChange(event) {
@@ -27,6 +30,11 @@ export class EquipmentTypeSearchTool extends React.Component {
     }
 
     searchButtonClicked(event) {
+        this.getSearchResults();
+        event.preventDefault();
+    }
+
+    getSearchResults() {
         var ref = this;
 
         dao.getEquipmentTypeAll(function(error, response) {
@@ -53,13 +61,10 @@ export class EquipmentTypeSearchTool extends React.Component {
                 })
             }
         });
-		event.preventDefault();
     }
 
     equipmentTypeClicked(event, equipmentType) {
-        if (this.state.searchString !== "") {
-            this.props.history.push("/configure/equipmentTypes/"+equipmentType.name, equipmentType);
-        }
+        this.props.history.push("/configure/equipmentTypes/"+equipmentType.name, equipmentType);
         event.preventDefault();
     }
 

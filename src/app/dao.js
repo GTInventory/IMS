@@ -24,7 +24,7 @@ module.exports = {
             "name": name,
             "type": type,
             "public": visible,
-            "unique": unique,
+            "uniqueGlobally": unique,
             "regex": regex,
             "helpText": placeholder
         };
@@ -67,15 +67,15 @@ module.exports = {
         let data = {};
 
         if (name) {
-            data["name"] = name;
+            data.name = name;
         }
 
         if (type) {
-            data["type"] = type;
+            data.type = type;
         }
 
         if (isPublic) {
-            data["public"] = isPublic;
+            data.public = isPublic;
         }
 
         postRequest(url, data)
