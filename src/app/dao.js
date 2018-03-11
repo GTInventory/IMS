@@ -124,13 +124,13 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    createAttribute: function(name, type, public, required, unique, regex, helpText, callback) {
+    createAttribute: function(name, type, isPublic, required, unique, regex, helpText, callback) {
         let url = BASE_URL + "/attribute";
 
         let data = {
             "name": name,
             "type": type,
-            "public": public,
+            "public": isPublic,
             "required": required,
             "unique": unique,
             "regex": regex,
@@ -142,13 +142,13 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    updateAttribute: function(attributeId, name, type, public, required, unique, regex, helpText, callback) {
+    updateAttribute: function(attributeId, name, type, isPublic, required, unique, regex, helpText, callback) {
         let url = BASE_URL + "/attribute/" + attributeId;
 
         let data = {
             "name": name,
             "type": type,
-            "public": public,
+            "public": isPublic,
             "required": required,
             "unique": unique,
             "regex": regex,

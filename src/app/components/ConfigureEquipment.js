@@ -22,7 +22,8 @@ export class ConfigureEquipment extends React.Component {
             isOpen: false,
             visible: false,
             attributeType: "",
-            attributeName: ""
+            attributeName: "",
+            formContents: ""
         };
     }
 
@@ -44,18 +45,38 @@ export class ConfigureEquipment extends React.Component {
         });
     }
 
-    handleSubmit(event) {
-        //TODO: Check if equipment already exists in database before adding
-        /*
-        dao.createAttribute(this.state.attributeName, this.state.attributeType, this.state.visible, function(error, response) {
+
+    /*
+        When search button is clicked, search database for input search string
+        and create a form that allows for attributes values to be filled in.
+     */
+    searchHandler(event, searchString) {
+        var ref = this;
+        dao.searchEquipmentTypesByName(searchString, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
-                console.log(response);
+                var responseExists = response.length;
+
+                if (response.success) {
+                    var equipmentType = response.result;
+                    var attributeList = response.result[0].attributes;
+                    console.log(attributeList);
+                    // Iterate through attribute list and create form contents, then
+                    // save to form contents
+                }
             }
+
         });
-        */
-        event.preventDefault();
+		event.preventDefault();
+    }
+
+    /*
+        TODO:
+        Checks that all attributes are filled in and creates the new equipment
+     */
+    handleSubmit(event) {
+
     }
 
     render() {
@@ -65,23 +86,12 @@ export class ConfigureEquipment extends React.Component {
                 <div id="titleBlock">
                     <h1 id="configureEquipmentTitle">Add Equipment</h1>
                 </div>
+                <SearchableEquipmentTypeDropdown barStyle={styles.equipmentTypeSearchBar}
+                    placeholder="Equipment Type Search" history={this.props.history}
+                    searchHandler={this.searchHandler}/>
                 <form id="addEquipmentForm">
-                            <label>
-                            Equipment Name:
-                                    <input name="enteraName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
-                            </label>
-                            <br />
-                            <Dropdown id="EquipmentTypeDropDown">
-                            <SearchableEquipmentTypeDropdown bs="menu">
-                                <MenuItem eventKey="1">Red</MenuItem>
-                                <MenuItem eventKey="2">Blue</MenuItem>
-                                <MenuItem eventKey="3" active>
-                                    Orange
-                                </MenuItem>
-                                <MenuItem eventKey="1">Red-Orange</MenuItem>
-                            </SearchableEquipmentTypeDropdown>
-                            </Dropdown>
-                    </form>
+                    {this.state.formContents}
+                </form>
             </div>
         );
     }
@@ -97,6 +107,12 @@ styles.searchBar = {
     margin: '0 auto',
     width: '30em',
     paddingTop: '2em'
+}
+
+styles.equipmentTypeSearchBar = {
+    margin: '0 auto',
+    width: '30em',
+    paddingTop: '5em'
 }
 
 styles.equipmentSearchBar = {

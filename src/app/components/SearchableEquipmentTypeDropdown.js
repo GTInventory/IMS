@@ -1,60 +1,82 @@
-/*
-    This component includes both an attribute search bar and the generated
-    table of closest matching attributes. It differs from the AttributeSearchTool
-    because this is for use when adding and Equipment Type, so it does not share
-    all of its functionality.
- */
-
 import React from "react";
 import PropTypes from "prop-types";
 // require("../css/EquipmentTypeAttributeSearchToolStyle.css");
 
 let dao = require("../dao.js");
 
+/*
+   This component builds off of the EquipmentTypeSearchTool. It uses a dropdown
+   functionality that creates a fillable form for actually filling in the
+   attributes instead of just linking to the equipment type.
+ */
 export class SearchableEquipmentTypeDropdown extends React.Component {
-  constructor(props, context) {
-    super(props, context);
 
-    this.handleChange = this.handleChange.bind(this);
+    /*
+        Upon construction, gets all equipment from database and adds it to
+        dropdown.
+     */
+    constructor() {
+        super();
+        this.state = {
+            searchString: "",
+            db_response: "",
+            optionsList: ""
+        };
 
-    this.state = {
-      value: ''
-    };
-  }
+        var ref = this;
+        dao.getEquipmentTypeAll(function(error, response) {
+            if (error != null) {
+                console.log(error);
+            } else {
+                var numEls = response.result.length;
+                var equipmentTypeList = [];
+                for (var i = 0; i < numEls; i++) {
+                    equipmentTypeList.push(response.result[i]);
+                }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value });
-  }
+                var results = equipmentTypeList.map((function(equipmentType){
+                                return (
+                                    <option key={equipmentType.name} value={equipmentType.name} />);
+                            }).bind(this));
 
-  focusNext() {
-    const input = ReactDOM.findDOMNode(this.input);
-
-    if (input) {
-      input.focus();
+                ref.setState({
+                    db_response: response,
+                    optionsList: results,
+                })
+            }
+        });
     }
-  }
 
-  render() {
-    const { children } = this.props;
-    const { value } = this.state;
+    onHandleSearchChange(event) {
+        this.setState({
+            searchString: event.target.value
+        });
+    }
 
-    return (
-      <div className="dropdown-menu" style={{ padding: '' }}>
-        <FormControl
-          ref={c => {
-            this.input = c;
-          }}
-          type="text"
-          placeholder="Type to filter..."
-          onChange={this.handleChange}
-          value={value}
-        />
-        <ul className="list-unstyled">
-          {React.Children.toArray(children).filter(
-            child => !value.trim() || child.props.children.indexOf(value) !== -1
-          )}
-        </ul>
-      </div>
-    );
-  }
+    render () {
+        return (
+            <div>
+                <form onSubmit={(event) =>this.props.searchHandler(event, this.state.searchString)}>
+                    <div className="input-group" style={this.props.barStyle}>
+                      <input id="search" list="equipsearch" type="search" className="form-control transparent-input" placeholder={this.props.placeholder} onChange={(event) => this.onHandleSearchChange(event)}/>
+                        <datalist id="equipsearch">
+                            {this.state.optionsList}
+                        </datalist>
+                        <span className="input-group-btn">
+                          <button id="submit" className="btn btn-secondary" type="button" onClick={(event) =>this.props.searchHandler(event, this.state.searchString)}>
+                              <span className="glyphicon glyphicon-search"></span>
+                          </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        );
+    }
 }
+
+SearchableEquipmentTypeDropdown.propTypes = {
+    barStyle: PropTypes.object,
+    placeholder: PropTypes.string,
+    history: PropTypes.object,
+    searchHandler: PropTypes.func
+};
