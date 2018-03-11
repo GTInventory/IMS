@@ -11,13 +11,12 @@
     padding: 1em;
 }
 
-#addEquipment {
-    width: 3em;
-    height: 3em;
-    padding: 0.5em 0px;
-    border-radius: 1.5em;
-    margin-top: 3em;
+#addEquipmentForm {
+    font-size: 1em;
+    vertical-align: center;
     text-align: center;
+
+
 }
 
 .hiddenTableDiv {

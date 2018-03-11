@@ -6,7 +6,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-require("../css/configureEquipmentTypesStyle.css");
+require("../css/ConfigureEquipmentTypesStyle.css");
 
 let dao = require("../dao.js");
 

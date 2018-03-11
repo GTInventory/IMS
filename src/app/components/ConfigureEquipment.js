@@ -7,7 +7,7 @@ let dao = require("../dao.js");
 import {SearchBar} from "./SearchBar";
 import {EquipmentSearchTool} from "./EquipmentSearchTool";
 import {Modal} from "./Modal";
-//import {EquipmentEquipmentTypeSearchTool} from "./EquipmentEquipmentTypeSearchTool";
+import {SearchableEquipmentTypeDropdown} from "./SearchableEquipmentTypeDropdown";
 
 
 /*
@@ -63,18 +63,25 @@ export class ConfigureEquipment extends React.Component {
             <div>
                 <SearchBar barStyle={styles.searchBar} placeholder="Search" history={this.props.history}/>
                 <div id="titleBlock">
-                    <h1 id="configureEquipmentTitle">Configure Equipment</h1>
-                    <button id="addEquipment" className="btn btn-secondary" type="button" data-toggle="modal" data-target="#addModal">
-                        <span className="glyphicon glyphicon-plus"></span>
-                    </button>
+                    <h1 id="configureEquipmentTitle">Add Equipment</h1>
                 </div>
-                <Modal mtitle = "Add Equipment" handleSave={this.handleSubmit.bind(this)}>
-                    <form>
-                    Equipment Name:
-                            <input name="enteraName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
+                <form id="addEquipmentForm">
+                            <label>
+                            Equipment Name:
+                                    <input name="enteraName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
+                            </label>
+                            <br />
+                            <Dropdown id="EquipmentTypeDropDown">
+                            <SearchableEquipmentTypeDropdown bs="menu">
+                                <MenuItem eventKey="1">Red</MenuItem>
+                                <MenuItem eventKey="2">Blue</MenuItem>
+                                <MenuItem eventKey="3" active>
+                                    Orange
+                                </MenuItem>
+                                <MenuItem eventKey="1">Red-Orange</MenuItem>
+                            </SearchableEquipmentTypeDropdown>
+                            </Dropdown>
                     </form>
-                </Modal>
-                <EquipmentSearchTool barStyle={styles.equipmentSearchBar} placeholder="Equipment Search" history={this.props.history}/>
             </div>
         );
     }
