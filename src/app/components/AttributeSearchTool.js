@@ -18,6 +18,9 @@ export class AttributeSearchTool extends React.Component {
             db_response: "",
             resultsTable: ""
         };
+
+        // This makes all attributes load in results table on page render
+        this.getSearchResults();
     }
 
     onHandleSearchChange(event) {
@@ -27,6 +30,11 @@ export class AttributeSearchTool extends React.Component {
     }
 
     searchButtonClicked(event) {
+        this.getSearchResults();
+		event.preventDefault();
+    }
+
+    getSearchResults() {
         var ref = this;
 
         dao.getAttributeByName(this.state.searchString, function(error, response) {
@@ -34,33 +42,31 @@ export class AttributeSearchTool extends React.Component {
                 console.log(error);
             } else {
                 var numEls = response.result.length;
-				var attributesList = [];
-				for (var i = 0; i < numEls; i++) {
-					attributesList.push(response.result[i]);
-				}
+                var attributesList = [];
+                for (var i = 0; i < numEls; i++) {
+                    attributesList.push(response.result[i]);
+                }
 
-				var results = attributesList.map((function(attribute){
-								return (
-									<tr  na={attribute.name} key={attribute.name}  onClick={(event)=>ref.attributeClicked(event, attribute)}>
-										<td>{attribute.name}</td>
-										<td>{attribute.type}</td>
-									</tr>);
-							}).bind(this));
+                var results = attributesList.map((function(attribute){
+                                return (
+                                    <tr  na={attribute.name} key={attribute.name} onClick={(event)=>ref.attributeClicked(event, attribute)}>
+                                        <td>{attribute.name}</td>
+                                        <td>{attribute.type}</td>
+                                    </tr>);
+                            }).bind(this));
 
                 ref.setState({
-					db_response: response,
-					resultsTable: results,
-					tableState: "asVisible"
+                    db_response: response,
+                    resultsTable: results,
+                    tableState: "asVisible"
                 })
             }
         });
-		event.preventDefault();
     }
 
     attributeClicked(event, attribute) {
-        if (this.state.searchString !== "") {
-            this.props.history.push("/configure/attributes/"+attribute.name, attribute);
-        }
+        // if (this.state.searchString !== "") {}
+        this.props.history.push("/configure/attributes/"+attribute.name, attribute);
         event.preventDefault();
     }
 
@@ -85,9 +91,7 @@ export class AttributeSearchTool extends React.Component {
                                 <th>Type</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {this.state.resultsTable}
-                        </tbody>
+                        <tbody>{this.state.resultsTable}</tbody>
                     </table>
                 </div>
             </div>

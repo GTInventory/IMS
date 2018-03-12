@@ -1,4 +1,4 @@
-const BASE_URL = "https://ims-backend.mybluemix.net"
+const BASE_URL = "https://ims-backend.mybluemix.net";
 
 function getRequest(url) {
     return fetch(url, {
@@ -54,7 +54,7 @@ module.exports = {
                 "uniqueForType": attributeUnique,
                 "required": attributeRequired
             }
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -68,7 +68,7 @@ module.exports = {
             "name": name,
             "nameAttribute": nameAttribute,
             "attributes": attributeList
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -82,7 +82,7 @@ module.exports = {
             "name": name,
             "nameAttribute": nameAttribute,
             "attributes": attributeList
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -90,7 +90,7 @@ module.exports = {
     },
 
     deleteEquipmentType: function(equipmentTypeId) {
-        let url = BASE_URL + "/type/" + equipmentTypeId + "/delete"
+        let url = BASE_URL + "/type/" + equipmentTypeId + "/delete";
 
         postRequest(url)
             .catch(error => callback(error))
@@ -107,7 +107,7 @@ module.exports = {
     },
 
     getAttributeAll: function(callback) {
-        let url = BASE_URL + "/attribute/"
+        let url = BASE_URL + "/attribute/";
 
         getRequest(url)
             .then(res => res.json())
@@ -124,36 +124,34 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    createAttribute: function(name, type, isPublic, required, unique, regex, helpText, callback) {
+    createAttribute: function(name, type, isPublic, unique, regex, helpText, callback) {
         let url = BASE_URL + "/attribute";
 
         let data = {
             "name": name,
             "type": type,
             "public": isPublic,
-            "required": required,
-            "unique": unique,
+            "uniqueGlobally": unique,
             "regex": regex,
             "helpText": helpText
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
             .then(response => callback(null, response));
     },
 
-    updateAttribute: function(attributeId, name, type, isPublic, required, unique, regex, helpText, callback) {
+    updateAttribute: function(attributeId, name, type, isPublic, unique, regex, helpText, callback) {
         let url = BASE_URL + "/attribute/" + attributeId;
 
         let data = {
             "name": name,
             "type": type,
             "public": isPublic,
-            "required": required,
-            "unique": unique,
+            "uniqueGlobally": unique,
             "regex": regex,
             "helpText": helpText
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -161,7 +159,7 @@ module.exports = {
     },
 
     deleteAttribute: function(attributeId) {
-        let url = BASE_URL + "/attribute/" + attributeId + "/delete"
+        let url = BASE_URL + "/attribute/" + attributeId + "/delete";
 
         postRequest(url)
             .catch(error => callback(error))
@@ -201,7 +199,7 @@ module.exports = {
         let data = {
             "typeId": typeId,
             "attributes": attributeList
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -214,7 +212,7 @@ module.exports = {
         let data = {
             "typeId": typeId,
             "attributes": attributeList
-        }
+        };
 
         postRequest(url, data)
             .catch(error => callback(error))
@@ -222,10 +220,10 @@ module.exports = {
     },
 
     deleteEquipment: function(equipmentId) {
-        let url = BASE_URL + "/item/" + equipmentId + "/delete"
+        let url = BASE_URL + "/item/" + equipmentId + "/delete";
 
         postRequest(url)
             .catch(error => callback(error))
             .then(response =>(null, response));
     }
-}
+};
