@@ -20,11 +20,11 @@ export class EditAttribute extends React.Component {
             editDisabled: true,
             attribute: attr,
             editText: "Edit",
-            attributeHelp: "",
+            attributeHelp: attr.helpText,
             attributeType: attr.type,
-            attributeUniqueGlobally: "",
-            attributePublic: "",
-            regex: ""
+            attributeUniqueGlobally: attr.uniqueGlobally,
+            attributePublic: attr.public,
+            regex: attr.regex
         };
     }
 
@@ -46,6 +46,8 @@ export class EditAttribute extends React.Component {
     }
 
     resetForm() {
+    	var attr = this.props[0].history.location.state;
+    	this.setState({attribute: attr});
     	this.refs.helpText.value = this.state.attribute.helpText;
     	this.refs.regex.value = this.state.attribute.regex;
     	// Show/hide regex field
@@ -99,17 +101,19 @@ export class EditAttribute extends React.Component {
 
         var ref = this;
         dao.updateAttribute(this.state.attribute.id, this.state.attribute.name,
-        	this.state.attributeType, this.state.attributePublic,
-        	this.state.attributeUniqueGlobally, this.state.regex, this.state.attributeHelp, //TODO: pick up here
-                            function(error, response) {
-                                if (error != null) {
-                                    console.log(error);
-                                } else {
-                                    ref.setState({
-                                        db_response: response
-                                    });
-                                }
+        		this.state.attributeType, this.state.attributePublic,
+        		this.state.attributeUniqueGlobally, this.state.regex, this.state.attributeHelp,
+            	function(error, response) {
+            if (error != null) {
+                console.log(error);
+            } else {
+                ref.setState({
+                	db_response: response
+                });
+            }
         });
+
+        this.editToggle();
     }
 
     handleDelete(event) {
@@ -178,9 +182,9 @@ export class EditAttribute extends React.Component {
                                   <input name="visible" ref="visible" type="checkbox" defaultChecked={this.state.attribute.public} onChange={(event) => this.handlePublicChange(event)} />
                                 </label>
                         	</fieldset>
-                            <button type="button" className="btn btn-primary" onClick={(event) => this.handleSave(event)}>Save</button>
-                            <button type="button" className="btn btn-danger" onClick={(event) => this.handleDelete(event)}>Delete</button>
-                            <button type="button" className="btn btn-secondary" onClick={(event) => this.handleBack(event)}>Back</button>
+                            <button type="button" className="btn btn-primary" style={!this.state.editDisabled ? {display:""} : {display:"none"}} onClick={(event) => this.handleSave(event)}>Save</button>
+                            <button type="button" className="btn btn-danger" style={!this.state.editDisabled ? {display:""} : {display:"none"}} onClick={(event) => this.handleDelete(event)}>Delete</button>
+                            <button type="button" className="btn btn-secondary" style={this.state.editDisabled ? {display:""} : {display:"none"}} onClick={(event) => this.handleBack(event)}>Back</button>
                         </form>
                     </div>
                 </div>
