@@ -1,7 +1,9 @@
 /*
     The manage attributes page allows for a user to add new attributes to the
-    system. The ManageAttributes component makes use of an AttributeSearchTool
-    that handles searching for existing attributes in the system.
+    system and to look up existing attributes in the system. 
+    The ManageAttributes component makes use of an AttributeSearchTool
+    that handles searching for existing attributes in the system. It also makes use
+    of the modal component to create a popup for adding new attributes to the system.
  */
 
 import React from "react";
@@ -13,7 +15,7 @@ let dao = require("../dao.js");
 import {SearchBar} from "./SearchBar";
 import {AttributeSearchTool} from "./AttributeSearchTool";
 import {Modal} from "./Modal";
-//import {freeForm} from "./freeForm";
+
 
 
 const initialState = {
@@ -49,13 +51,14 @@ export class ManageAttributes extends React.Component {
             attributeName: event.target.value
         });
     }
-
+    // Saves if the 'Visible' checkbox gets marked
     handleCheckboxChangeVisible(event) {
         this.setState({
             visible: event.target.checked
         });
     }
-
+    
+    // Saves if the 'Unique' checkbox gets marked
     handleCheckboxChangeUnique(event) {
         this.setState({
             uniqueGlobally: event.target.checked
@@ -74,6 +77,7 @@ export class ManageAttributes extends React.Component {
         });
     }
 
+    //Resets the popup form after a save is completed or the popup gets closed
     resetForm() {
         this.refs.aName.value = "";
         this.refs.regex.value = "";
