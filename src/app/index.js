@@ -19,7 +19,7 @@ class App extends React.Component {
         return (
             <Router>
                 <div>
-                    <Header/>
+                    <Route path="/" component={Header}/>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/search/:searchString" render={(...props)=><SearchResults {...props}/>}/>
                     <Route exact path="/configure/attributes" component={ManageAttributes}/>

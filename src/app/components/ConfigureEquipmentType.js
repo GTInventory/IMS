@@ -10,7 +10,6 @@ require("../css/ConfigureEquipmentTypesStyle.css");
 
 let dao = require("../dao.js");
 
-import {SearchBar} from "./SearchBar";
 import {EquipmentTypeAttributeList} from "./EquipmentTypeAttributeList";
 import {EquipmentTypeAttributeSearchTool} from "./EquipmentTypeAttributeSearchTool";
 import {EquipmentTypeSearchTool} from "./EquipmentTypeSearchTool";
@@ -77,7 +76,6 @@ export class ConfigureEquipmentType extends React.Component {
     render() {
         return (
             <div>
-                <SearchBar barStyle={styles.searchBar} placeholder="Search" history={this.props.history}/>
                 <div id="titleBlock">
                     <h1 id="configureEquipmentTypesTitle">Configure Equipment Types</h1>
                     <button id="addEquipmentType" className="btn btn-secondary" type="button" data-toggle="modal" data-target="#addModal">
@@ -110,12 +108,6 @@ ConfigureEquipmentType.propTypes = {
 };
 
 const styles = {};
-
-styles.searchBar = {
-    margin: '0 auto',
-    width: '30em',
-    paddingTop: '2em'
-}
 
 styles.equipmentTypeAttributeSearchBar = {
     margin: '0 auto',

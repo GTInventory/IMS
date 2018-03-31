@@ -1,6 +1,6 @@
 /*
     The manage attributes page allows for a user to add new attributes to the
-    system and to look up existing attributes in the system. 
+    system and to look up existing attributes in the system.
     The ManageAttributes component makes use of an AttributeSearchTool
     that handles searching for existing attributes in the system. It also makes use
     of the modal component to create a popup for adding new attributes to the system.
@@ -12,7 +12,6 @@ require("../css/ManageAttributesStyle.css");
 
 let dao = require("../dao.js");
 
-import {SearchBar} from "./SearchBar";
 import {AttributeSearchTool} from "./AttributeSearchTool";
 import {Modal} from "./Modal";
 
@@ -57,7 +56,7 @@ export class ManageAttributes extends React.Component {
             visible: event.target.checked
         });
     }
-    
+
     // Saves if the 'Unique' checkbox gets marked
     handleCheckboxChangeUnique(event) {
         this.setState({
@@ -118,7 +117,6 @@ export class ManageAttributes extends React.Component {
     render() {
         return (
             <div>
-                <SearchBar barStyle={styles.searchBar} placeholder="Search" history={this.props.history}/>
                 <div id="titleBlock">
                     <h1 id="manageAttributesTitle">Configure Attributes</h1>
                     <button id="addAttribute" className="btn btn-secondary" type="button" data-toggle="modal" data-target="#addModal">
@@ -181,12 +179,6 @@ ManageAttributes.propTypes = {
 };
 
 const styles = {};
-
-styles.searchBar = {
-    margin: '0 auto',
-    width: '30em',
-    paddingTop: '2em'
-}
 
 styles.attributeSearchBar = {
     margin: '0 auto',

@@ -4,7 +4,6 @@ require("../css/ConfigureEquipmentStyle.css");
 
 let dao = require("../dao.js");
 
-import {SearchBar} from "./SearchBar";
 import {EquipmentSearchTool} from "./EquipmentSearchTool";
 import {Modal} from "./Modal";
 import {SearchableEquipmentTypeDropdown} from "./SearchableEquipmentTypeDropdown";
@@ -82,7 +81,6 @@ export class ConfigureEquipment extends React.Component {
     render() {
         return (
             <div>
-                <SearchBar barStyle={styles.searchBar} placeholder="Search" history={this.props.history}/>
                 <div id="titleBlock">
                     <h1 id="configureEquipmentTitle">Add Equipment</h1>
                 </div>
@@ -102,12 +100,6 @@ ConfigureEquipment.propTypes = {
 };
 
 const styles = {};
-
-styles.searchBar = {
-    margin: '0 auto',
-    width: '30em',
-    paddingTop: '2em'
-}
 
 styles.equipmentTypeSearchBar = {
     margin: '0 auto',

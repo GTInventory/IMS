@@ -9,8 +9,7 @@ export class SearchBar extends React.Component {
         super();
         this.state = {
             advancedState: "asHidden",
-            normalSearch: true,
-            advancedButton: "glyphicon glyphicon-menu-down",
+            advancedButton: "glyphicon glyphicon-menu-down"
         };
     }
 
@@ -31,13 +30,11 @@ export class SearchBar extends React.Component {
         if (this.state.normalSearch) {
             this.setState({
                 advancedState: "asVisible",
-                normalSearch: false,
                 advancedButton: "glyphicon glyphicon-menu-up"
             });
         } else {
             this.setState({
                 advancedState: "asHidden",
-                normalSearch: true,
                 advancedButton: "glyphicon glyphicon-menu-down"
             });
         }
@@ -48,21 +45,29 @@ export class SearchBar extends React.Component {
             <div>
                 <form onSubmit={(event) =>this.searchButtonClicked(event)}>
                     <div className="input-group" style={this.props.barStyle}>
-                      <input id="search" type="search" className="form-control transparent-input" placeholder={this.props.placeholder} onChange={(event) => this.onHandleSearchChange(event)}/>
+                        <input id="search" type="search"
+                            className={"form-control transparent-input " + this.props.inputSpecialClass}
+                            placeholder={this.props.placeholder}
+                            onChange={(event) => this.onHandleSearchChange(event)}/>
                         <span className="input-group-btn">
-                          <button id="submit" className="btn btn-secondary" type="button" onClick={(event) =>this.searchButtonClicked(event)}>
-                              <span className="glyphicon glyphicon-search"></span>
-                          </button>
-                          <button id="advancedSearch" className="btn btn-secondary" type="button" onClick={this.toggleSearch.bind(this)}>
-                              <span className={this.state.advancedButton} id="navItem"></span>
-                          </button>
+                            <button id="submit" className="btn btn-secondary"
+                                type="submit"
+                                onClick={(event) =>this.searchButtonClicked(event)}>
+                                <span className="glyphicon glyphicon-search"></span>
+                            </button>
+                            <button id="advancedSearch"
+                                className="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true"
+                                 aria-expanded="false" type="button"
+                                 onClick={this.toggleSearch.bind(this)}>
+                                 <span className={this.state.advancedButton} id="navItem"></span>
+                            </button>
+                            <div className="dropdown-menu">
+                                <AdvancedSearchOptions/>
+                            </div>
                         </span>
                     </div>
                 </form>
-                <div id={this.state.advancedState}>
-                    <hr id="advancedHR"/>
-                    <AdvancedSearchOptions/>
-                </div>
             </div>
         );
     }
@@ -70,6 +75,7 @@ export class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
     barStyle: PropTypes.object,
+    inputSpecialClass: PropTypes.string,
     placeholder: PropTypes.string,
-    history: PropTypes.object
+    history: PropTypes.object,
 };
