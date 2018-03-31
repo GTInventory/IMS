@@ -65,6 +65,7 @@ export class SearchableEquipmentTypeDropdown extends React.Component {
                         <span className="input-group-btn">
                           <button id="submit" className="btn btn-secondary" type="button" onClick={(event) =>this.props.searchHandler(event, this.state.searchString)}>
                               <span className="glyphicon glyphicon-search"></span>
+                              
                           </button>
                         </span>
                     </div>

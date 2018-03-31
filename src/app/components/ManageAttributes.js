@@ -1,7 +1,9 @@
 /*
     The manage attributes page allows for a user to add new attributes to the
-    system. The ManageAttributes component makes use of an AttributeSearchTool
-    that handles searching for existing attributes in the system.
+    system and to look up existing attributes in the system. 
+    zThe ManageAttributes component makes use of an AttributeSearchTool
+    that handles searching for existing attributes in the system. It also makes use
+    of the modal component to create a popup for adding new attributes to the system.
  */
 
 import React from "react";
