@@ -20,6 +20,8 @@ export class EquipmentTypeAttributeSearchTool extends React.Component {
             db_response: "",
             resultsTable: ""
         };
+
+        this.getAllAttributes();
     }
 
     onHandleSearchChange(event) {
@@ -29,34 +31,68 @@ export class EquipmentTypeAttributeSearchTool extends React.Component {
     }
 
     searchButtonClicked(event) {
+        this.getSearchResults();
+        event.preventDefault();
+    }
+
+    getAllAttributes() {
         var ref = this;
 
-        dao.getAttributeAll(function(error, response) {
+        dao.getAttributeAll(function(error, response){
             if (error != null) {
                 console.log(error);
             } else {
                 var numEls = response.result.length;
-				var attributesList = [];
-				for (var i = 0; i < numEls; i++) {
-					attributesList.push(response.result[i]);
-				}
+                var attributesList = [];
+                for (var i = 0; i < numEls; i++) {
+                    attributesList.push(response.result[i]);
+                }
 
-				var results = attributesList.map((function(attribute){
-								return (
-									<tr na={attribute.name} key={attribute.name} onClick={(event)=>ref.attributeClicked(event, attribute)}>
-										<td>{attribute.name}</td>
-										<td>{attribute.type}</td>
-									</tr>);
-							}).bind(this));
+                var results = attributesList.map((function(attribute){
+                                return (
+                                    <tr  na={attribute.name} key={attribute.name} onClick={(event)=>ref.attributeClicked(event, attribute)}>
+                                        <td>{attribute.name}</td>
+                                        <td>{attribute.type}</td>
+                                    </tr>);
+                            }).bind(this));
 
                 ref.setState({
-					db_response: response,
-					resultsTable: results,
-					tableState: "asVisible"
+                    db_response: response,
+                    resultsTable: results,
+                    tableState: "asVisible"
                 })
             }
         });
-		event.preventDefault();
+    }
+
+    getSearchResults() {
+        var ref = this;
+
+        dao.getAttributeByName(this.state.searchString, function(error, response) {
+            if (error != null) {
+                console.log(error);
+            } else {
+                var numEls = response.result.length;
+                var attributesList = [];
+                for (var i = 0; i < numEls; i++) {
+                    attributesList.push(response.result[i]);
+                }
+
+                var results = attributesList.map((function(attribute){
+                                return (
+                                    <tr  na={attribute.name} key={attribute.name} onClick={(event)=>ref.attributeClicked(event, attribute)}>
+                                        <td>{attribute.name}</td>
+                                        <td>{attribute.type}</td>
+                                    </tr>);
+                            }).bind(this));
+
+                ref.setState({
+                    db_response: response,
+                    resultsTable: results,
+                    tableState: "asVisible"
+                })
+            }
+        });
     }
 
     attributeClicked(event, attribute) {
