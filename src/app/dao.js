@@ -66,8 +66,8 @@ module.exports = {
 
         let data = {
             "name": name,
-            "nameAttribute": nameAttribute,
-            "attributes": attributeList
+            "attributes": attributeList,
+            "nameAttribute": nameAttribute
         };
 
         postRequest(url, data)
@@ -75,13 +75,13 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    createEquipmentType: function(name, nameAttribute, attributeList, callback) {
+    createEquipmentType: function(name, attributeList, nameAttribute, callback) {
         let url = BASE_URL + "/type";
 
         let data = {
             "name": name,
-            "nameAttribute": nameAttribute,
-            "attributes": attributeList
+            "attributes": attributeList,
+            "nameAttribute": nameAttribute
         };
 
         postRequest(url, data)

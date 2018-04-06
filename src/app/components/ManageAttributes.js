@@ -15,8 +15,6 @@ let dao = require("../dao.js");
 import {AttributeSearchTool} from "./AttributeSearchTool";
 import {Modal} from "./Modal";
 
-
-
 const initialState = {
     isOpen: false,
     uniqueGlobally: false,
@@ -33,6 +31,7 @@ export class ManageAttributes extends React.Component {
         this.state = initialState;
     }
 
+    // Called when the attribute type dropdown is changed
     handleSelectChange(event) {
         this.setState({
             attributeType: event.target.value
@@ -45,31 +44,35 @@ export class ManageAttributes extends React.Component {
         }
     }
 
+    // Called when the attribute name field is changed
     handleInputChange(event) {
         this.setState({
             attributeName: event.target.value
         });
     }
-    // Saves if the 'Visible' checkbox gets marked
+
+    // Called when the 'Visible' checkbox is changed
     handleCheckboxChangeVisible(event) {
         this.setState({
             visible: event.target.checked
         });
     }
 
-    // Saves if the 'Unique' checkbox gets marked
+    // Called when the 'Unique' checkbox is changed
     handleCheckboxChangeUnique(event) {
         this.setState({
             uniqueGlobally: event.target.checked
         });
     }
 
+    // Called when the regex field is changed
     handleRegexChange(event) {
         this.setState({
             regex: event.target.value
         });
     }
 
+    // Called when the placeholder field is changed
     handlePlaceholderChange(event) {
         this.setState({
             placeholder: event.target.value
