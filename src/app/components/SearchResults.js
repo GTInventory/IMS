@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 require("../css/SearchResultsStyle.css");
 
-
+/*
+    The search results page shows search results for a given query.
+    This query is gotten from the page that transitions to this page.
+ */
 export class SearchResults extends React.Component {
     render() {
         var searchString = this.props[0].match.params.searchString;
