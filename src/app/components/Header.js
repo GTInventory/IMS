@@ -4,6 +4,11 @@ import {SearchBar} from "./SearchBar";
 
 require("../css/HeaderStyle.css");
 
+/*
+    This component encompasses the persistent navigation bar that appears in all
+    pages. It includes links that connect to the rest of the website, and it also
+    includes a search bar for quickly searching for equipment.
+ */
 export class Header extends React.Component {
     render() {
         return (
