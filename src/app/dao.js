@@ -61,12 +61,11 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    updateEquipmentType: function(name, nameAttribute, attributeList, callback) {
+    updateEquipmentTypeById: function(equipmentTypeId, name, nameAttribute, callback) {
         let url = BASE_URL + "/type/" + equipmentTypeId;
 
         let data = {
             "name": name,
-            "attributes": attributeList,
             "nameAttribute": nameAttribute
         };
 
