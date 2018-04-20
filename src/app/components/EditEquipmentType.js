@@ -17,18 +17,14 @@ let dao = require("../dao.js");
 export class EditEquipmentType extends React.Component {
     constructor(props) {
         super(props);
-        var equipmentTypeNameString = this.props[0].match.params.equipmentTypeName;
-        var equip = this.props[0].history.location.state;
+        let equipmentTypeNameString = this.props[0].match.params.equipmentTypeName;
+        let equip = JSON.parse(JSON.stringify(this.props[0].history.location.state));
         this.state = {
             editDisabled: true,
-            equipmentType: equip,
             editText: "Edit",
+            equipmentType: equip,
             equipmentTypeHelp: "",
-            items: [],
-            // attributeType: "",
-            // attributeRequired: "",
-            // attributeUnique: "",
-            // attributePublic: ""
+            items: []
         };
     }
 
@@ -43,10 +39,9 @@ export class EditEquipmentType extends React.Component {
                 editDisabled: true,
                 editText: "Edit"
             });
+            this.resetForm();
         }
     }
-
-    handle
 
     //  handleTypeChange(event) {
     //     this.setState({
@@ -61,7 +56,7 @@ export class EditEquipmentType extends React.Component {
     }
 
     handleAddAttribute(event, attribute) {
-        var newList = this.state.items.slice();
+        let newList = this.state.items.slice();
         newList.push(attribute);
         this.setState({items:newList});
     }
@@ -70,23 +65,9 @@ export class EditEquipmentType extends React.Component {
         this.setState({items: arrayMove(this.state.items, oldIndex, newIndex)});
     };
 
-    // handleRequiredChange(event){
-    //     this.setState({
-    //         attributeRequired: event.target.checked
-    //     });
-    // }
-
-    // handleUniqueChange(event){
-    //     this.setState({
-    //         attributeUnique: event.target.checked
-    //     });
-    // }
-
-    // handlePublicChange(event){
-    //     this.setState({
-    //         attributePublic: event.target.checked
-    //     });
-    // } 
+    resetForm() {
+        location.reload();
+    }
 
     handleSave(event) {
         // TODO: Create a popup to verify user wants to save.
@@ -110,10 +91,66 @@ export class EditEquipmentType extends React.Component {
         // TODO: Create a popup to tell user of consequences
     }
 
+    handleBack(event) {
+        window.location = '/configure/equipmentTypes';
+    }
+
+    handleCheckboxChangeUnique(attributePos, event) {
+        let equipmentType = this.state.equipmentType;
+
+        equipmentType.attributes[attributePos].attributeType.uniqueForType = event.target.checked;
+
+        this.setState({
+            equipmentType: equipmentType
+        });
+    }
+
+    handleSelectChange(attributePos, event) {
+        let equipmentType = this.state.equipmentType;
+        equipmentType.attributes[attributePos].attributeType.required = event.target.value;
+
+        this.setState({
+            equipmentType: equipmentType
+        });
+    }
+
+    populateTable() {
+        let attributes = this.state.equipmentType.attributes;
+
+        let attrRows = [];
+
+        for (let i = 0; i < attributes.length; i++) {
+
+            attrRows.push(<tr key={attributes[i].id}>
+                <td>{attributes[i].name}</td>
+                <td>{attributes[i].type}</td>
+                <td>
+                    <label>
+                        <select value={attributes[i].attributeType.required} onChange={this.handleSelectChange.bind(this, i)}>
+                            <option value="Required">Required</option>
+                            <option value="Suggested">Suggested</option>
+                            <option value="Optional">Optional</option>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input name="required" type="checkbox" defaultChecked={attributes[i].attributeType.uniqueForType} onChange={this.handleCheckboxChangeUnique.bind(this, i)}/>
+                    </label>
+                </td>
+            </tr>);
+        }
+
+        this.state.items = attrRows
+    }
+
     render() {
 
         //TODO: if user chooses to go to website through URL directly,
         // search for equipment type name from URL bar.
+
+        this.populateTable();
+
         return (
             <div>
                 <div id="titleBlock">
@@ -127,21 +164,29 @@ export class EditEquipmentType extends React.Component {
                         <form id="editForm">
                             <fieldset disabled={this.state.editDisabled}>
                                 <label id="editFormLabel">
-                                    Help Text:
-                                    <input name="enteraName" type="textarea" placeholder={this.state.equipmentType.helpText} onChange={(event) => this.handleHelpChange(event)}/>
+                                    <div id={this.state.tableState} className="hiddenTableDiv" style={{width: '40em'}}>
+                                        <table className="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Attribute Name</th>
+                                                <th>Type</th>
+                                                <th>Required Level</th>
+                                                <th>Unique for Type</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>{this.state.items}</tbody>
+                                        </table>
+                                    </div>
                                 </label>
                             </fieldset>
                             <br />
                             <fieldset disabled={this.state.editDisabled}>
                                 <label id="editFormLabel">
-                                    <EquipmentTypeAttributeList items={this.state.items} handleOnSortEnd={this.onSortEnd} defaultValue={this.state.equipmentType.items}/>
                                 </label>
                             </fieldset>
-                            <br />
-                            <fieldset disabled={this.state.editDisabled}>
-                                <label id="editFormLabel">
-                                </label>
-                            </fieldset>
+                            <button type="button" className="btn btn-primary" style={!this.state.editDisabled ? {display:""} : {display:"none"}} onClick={(event) => this.handleSave(event)}>Save</button>
+                            <button type="button" className="btn btn-danger" style={!this.state.editDisabled ? {display:""} : {display:"none"}} onClick={(event) => this.handleDelete(event)}>Delete</button>
+                            <button type="button" className="btn btn-secondary" style={this.state.editDisabled ? {display:""} : {display:"none"}} onClick={(event) => this.handleBack(event)}>Back</button>
                         </form>
                     </div>
                 </div>
@@ -156,3 +201,17 @@ EditEquipmentType.propTypes = {
     equipmentTypeNameString: PropTypes.string,
     history: PropTypes.object
 };
+
+const styles = {};
+
+styles.equipmentTypeAttributeSearchBar = {
+    margin: '0 auto',
+    width: '30em',
+    paddingTop: '5em'
+}
+
+styles.equipmentTypeSearchBar = {
+    margin: '0 auto',
+    width: '30em',
+    paddingTop: '5em'
+}
