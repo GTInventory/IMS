@@ -183,14 +183,23 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    searchEquipmentByName: function(searchString, callback) {
-        let url = BASE_URL + "/item?q=" + searchString;
+    searchEquipmentByName: function(searchString, start, limit, callback) {
+        let url = BASE_URL + "/item?q=" + searchString  + "&start=" + start + "&limit=" + limit;
 
         getRequest(url)
             .then(res => res.json())
             .catch(error => callback(error))
             .then(response => callback(null, response));
     },
+
+    searchEquipmentByType: function(typeId, searchString, start, limit, callback) {
+        let url = BASE_URL + "/item?q=" + searchString  + "&start=" + start + "&limit=" + limit + "&typeId=" + typeId;
+
+        getRequest(url)
+            .then(res => res.json())
+            .catch(error => callback(error))
+            .then(response => callback(null, response));
+    }
 
     updateEquipment: function(equipmentId, typeId, attributeList, callback) {
         let url = BASE_URL + "/item/" + equipmentId;
