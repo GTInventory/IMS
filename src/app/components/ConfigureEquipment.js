@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 require("../css/ConfigureEquipmentStyle.css");
 
 let dao = require("../dao.js");
 
 import {EquipmentSearchTool} from "./EquipmentSearchTool";
 import {Modal} from "./Modal";
+import {EquipmentEquipmentTypeSearchTool} from "./EquipmentEquipmentTypeSearchTool";
+import {arrayMove} from  'react-sortable-hoc';
 import {SearchableEquipmentTypeDropdown} from "./SearchableEquipmentTypeDropdown";
 
 
@@ -84,9 +87,10 @@ export class ConfigureEquipment extends React.Component {
                 <div id="titleBlock">
                     <h1 id="configureEquipmentTitle">Add Equipment</h1>
                 </div>
-                <SearchableEquipmentTypeDropdown barStyle={styles.equipmentTypeSearchBar}
+                <EquipmentEquipmentTypeSearchTool barStyle={styles.equipmentTypeSearchBar}
                     placeholder="Equipment Type Search" history={this.props.history}
                     searchHandler={this.searchHandler}/>
+
                 <form id="addEquipmentForm">
                     {this.state.formContents}
                 </form>
