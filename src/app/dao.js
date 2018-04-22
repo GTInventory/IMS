@@ -199,7 +199,7 @@ module.exports = {
             .then(res => res.json())
             .catch(error => callback(error))
             .then(response => callback(null, response));
-    }
+    },
 
     updateEquipment: function(equipmentId, typeId, attributeList, callback) {
         let url = BASE_URL + "/item/" + equipmentId;
