@@ -10,7 +10,6 @@ require("../css/EquipmentTypeSearchToolStyle.css");
 
 let dao = require("../dao.js");
 
-import {Modal} from "./Modal";
 
 
 export class EquipmentEquipmentTypeSearchTool extends React.Component {
@@ -25,14 +24,13 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
             addText:"Add Equipment",
             equipmentTypeEnum: "",
             equipmentTypeName: "",
-            attributeNames: [],
+            attributeNames: "",
+    
         };
 
         // This makes all equipment types load in results table on page render
         this.getSearchResults();
     }
-
-    handleEquipmentTypeTemplate
 
     onHandleSearchChange(event) {
         this.setState({
@@ -53,33 +51,21 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
         });
     }
 
-    getAttributeNames() {
-        var ref = this;
+    // getAttributeNames() {
+    //     var ref = this;
+    //     let attrNames = [];
+    //     let attributes = this.state.equipmentType.attributes;
 
-        dao.getEquipmentTypeByName(this.state.equipmentTypeName, function(error, response) {
-            if (error != null) {
-                console.log(error);
-            } else {
-                var numEls = response.result.attributes.length;
-                var attributesList = [];
-                for (var i = 0; i < numEls; i++) {
-                    attributesList.push(response.result.attributes[i].name);
-                }
-
-                var results = attributesList.map((function(equipmentType){
-                                return (
-                                    <label na={equipmentType.attributes.name} key={equipmentType.attributes.name}>
-                                        {equipmentType.attributes.name}
-                                        <input type="textarea" />
-                                    </label>);
-                            }).bind(this));
-
-                ref.setState({
-                    attributeNames: results,
-                })
-            }
-        });
-    }
+    //     for (let i = 0; i < attributes.length; i++) {
+    //         attrNames.push(
+    //             <label id={attributes[i].name}>
+    //                 {attributes[i].name}: 
+    //                 <input name={attributes[i].name} type ="textarea" ref="typeName" />
+    //             </label>
+    //             <br />
+    //             );
+    //     }
+    // }
 
     getSearchResults() {
         var ref = this;
@@ -89,24 +75,22 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
                 console.log(error);
             } else {
                 var numEls = response.result.length;
-                var aNamesList = [];
                 var equipmentTypeList = [];
-				for (var i = 0; i < numEls; i++) {
-					equipmentTypeList.push(response.result[i]);
-				}
+                for (var i = 0; i < numEls; i++) {
+                    equipmentTypeList.push(response.result[i]);
+                }
 
-				var results = equipmentTypeList.map((function(equipmentType){
-								return (
-									<tr  na={equipmentType.name} key={equipmentType.name}  onClick={(event)=>ref.equipmentTypeClicked(event, equipmentType)}>
-										<td>{equipmentType.name}</td>
-									</tr>);
-							}).bind(this));
-                
+                var results = equipmentTypeList.map((function(equipmentType){
+                                return (
+                                    <tr  na={equipmentType.name} key={equipmentType.name}  onClick={(event)=>ref.equipmentTypeClicked(event, equipmentType)}>
+                                        <td>{equipmentType.name}</td>
+                                    </tr>);
+                            }).bind(this));
 
                 ref.setState({
-					db_response: response,
-					resultsTable: results,
-					tableState: "asVisible"
+                    db_response: response,
+                    resultsTable: results,
+                    tableState: "asVisible"
                 })
             }
         });
@@ -115,7 +99,7 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
     //hides and displays the form for adding equipment.
     equipmentTypeClicked(event, equipmentType) {
         equipmentTypeModal.style.display = "";
-        getAttributeNames(equipmentType);
+        
         event.preventDefault();
     }
 
@@ -141,9 +125,7 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
                         <br />
                             {this.state.attributeNames};
                         <br />
-                        <select value={this.state.equipmentTypeEnum} onChange={(event) => this.handleSelectChange(event)}>
-                            <option value="Boolean">Boolean</option>
-                        </select> 
+                
                         <br />
                         <button id="addEquipmentButton" className="btn btn-secondary" type="button" onClick={(event) =>this.cancelAddEquipment(event)}>
                             {this.state.addText}
