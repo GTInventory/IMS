@@ -71,20 +71,29 @@ export class EditEquipmentType extends React.Component {
 
     handleSave(event) {
         // TODO: Create a popup to verify user wants to save.
+        var ref = this;
 
-        /* var ref = this;
-        dao.updateEquipmentType(this.state.equipmentType.id, this.state.attribute.name,
-                            this.state.items,
+        var attributeLength = this.state.equipmentType.attributes.length;
+        var attributeList = [];
+        for (var i = 0; i < attributeLength; i++) {
+            attributeList.push({
+                "id": this.state.equipmentType.attributes[i].id,
+                "required": this.state.equipmentType.attributes[i].attributeType.required,
+                "uniqueForType": this.state.equipmentType.attributes[i].attributeType.uniqueForType
+            });
+        }
+
+        dao.updateEquipmentTypeById(this.state.equipmentType.id, this.state.equipmentType.name,
+                            this.state.equipmentType.nameAttribute, attributeList,
                             function(error, response) {
                                 if (error != null) {
                                     console.log(error);
                                 } else {
-                                    console.log("hi");
                                     ref.setState({
                                     db_response: response
                                     })
                                 }
-        }); */
+        });
     }
 
     handleDelete(event) {

@@ -74,7 +74,7 @@ export class ConfigureEquipmentType extends React.Component {
                 nameAttribute = i;
             }
         }
-
+        console.log(attributeList);
         dao.createEquipmentType(this.state.equipmentTypeName, attributeList, nameAttribute, function(error, response) {
             if (error != null) {
                 console.log(error);

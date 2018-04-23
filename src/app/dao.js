@@ -7,6 +7,7 @@ function getRequest(url) {
 }
 
 function postRequest(url, body) {
+    console.log(url, body);
     return fetch(url, {
             method: 'POST',
             body: JSON.stringify(body),
@@ -61,11 +62,12 @@ module.exports = {
             .then(response => callback(null, response));
     },
 
-    updateEquipmentTypeById: function(equipmentTypeId, name, nameAttribute, callback) {
+    updateEquipmentTypeById: function(equipmentTypeId, name, nameAttribute, attributeList, callback) {
         let url = BASE_URL + "/type/" + equipmentTypeId;
 
         let data = {
             "name": name,
+            "attributes": attributeList,
             "nameAttribute": nameAttribute
         };
 

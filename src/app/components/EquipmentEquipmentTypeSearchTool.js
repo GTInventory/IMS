@@ -25,7 +25,7 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
             equipmentTypeEnum: "",
             equipmentTypeId: "",
             attributeNames: "",
-    
+
         };
 
         // This makes all equipment types load in results table on page render
@@ -39,7 +39,9 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
     }
 
     setEquipmentTypeId(equipmentType) {
-        equipmentTypeId: equipmentType.id;
+        this.setState({
+            equipmentTypeId: equipmentType.id
+        });
     }
 
     //This gets the search results
@@ -56,21 +58,20 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
 
     getAttributeNames() {
         var ref = this;
-
         dao.getEquipmentTypeById(this.state.equipmentTypeId, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
-                var numEls = response.result.attributes.length;
+                var numEls = response.result[0].attributes.length;
                 var attributesList = [];
                 for (var i = 0; i < numEls; i++) {
-                    attributesList.push(response.result.attributes[i].name);
+                    attributesList.push(response.result[0].attributes[i]);
                 }
-
-                var results = attributesList.map((function(equipmentType){
+                console.log(attributesList);
+                var results = attributesList.map((function(attribute){
                                 return (
-                                    <label na={equipmentType.attributes.name} key={equipmentType.attributes.name}>
-                                        {equipmentType.attributes.name}
+                                    <label na={attribute.name} key={attribute.name}>
+                                        {attribute.name}
                                         <input type="textarea" />
                                     </label>);
                             }).bind(this));
@@ -85,10 +86,11 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
     getSearchResults() {
         var ref = this;
 
-        dao.getEquipmentTypeAll("", 10, function(error, response) {
+        dao.getEquipmentTypeAll(0, 20, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
+
                 var numEls = response.result.length;
                 var equipmentTypeList = [];
                 for (var i = 0; i < numEls; i++) {
@@ -105,7 +107,7 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
                 ref.setState({
                     db_response: response,
                     resultsTable: results,
-                    tableState: "asVisible" 
+                    tableState: "asVisible"
                 })
             }
         });
@@ -114,8 +116,8 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
     //hides and displays the form for adding equipment.
     equipmentTypeClicked(event, equipmentType) {
         equipmentTypeModal.style.display = "";
-        setEquipmentTypeId(equipmentType);
-        getAttributeNames();
+        this.setEquipmentTypeId(equipmentType);
+        this.getAttributeNames();
         event.preventDefault();
     }
 
@@ -185,4 +187,3 @@ EquipmentEquipmentTypeSearchTool.propTypes = {
     placeholder: PropTypes.string,
     history: PropTypes.object
 };
-
