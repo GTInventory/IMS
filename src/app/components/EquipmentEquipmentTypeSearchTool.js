@@ -23,7 +23,7 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
             cancelText: "Cancel",
             addText:"Add Equipment",
             equipmentTypeEnum: "",
-            equipmentTypeName: "",
+            equipmentTypeId: "",
             attributeNames: "",
     
         };
@@ -38,6 +38,9 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
         });
     }
 
+    setEquipmentTypeId(equipmentType) {
+        equipmentTypeId: equipmentType.id;
+    }
 
     //This gets the search results
     searchButtonClicked(event) {
@@ -51,26 +54,38 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
         });
     }
 
-    // getAttributeNames() {
-    //     var ref = this;
-    //     let attrNames = [];
-    //     let attributes = this.state.equipmentType.attributes;
+    getAttributeNames() {
+        var ref = this;
 
-    //     for (let i = 0; i < attributes.length; i++) {
-    //         attrNames.push(
-    //             <label id={attributes[i].name}>
-    //                 {attributes[i].name}: 
-    //                 <input name={attributes[i].name} type ="textarea" ref="typeName" />
-    //             </label>
-    //             <br />
-    //             );
-    //     }
-    // }
+        dao.getEquipmentTypeById(this.state.equipmentTypeId, function(error, response) {
+            if (error != null) {
+                console.log(error);
+            } else {
+                var numEls = response.result.attributes.length;
+                var attributesList = [];
+                for (var i = 0; i < numEls; i++) {
+                    attributesList.push(response.result.attributes[i].name);
+                }
+
+                var results = attributesList.map((function(equipmentType){
+                                return (
+                                    <label na={equipmentType.attributes.name} key={equipmentType.attributes.name}>
+                                        {equipmentType.attributes.name}
+                                        <input type="textarea" />
+                                    </label>);
+                            }).bind(this));
+
+                ref.setState({
+                    attributeNames: results,
+                })
+            }
+        });
+    }
 
     getSearchResults() {
         var ref = this;
 
-        dao.getEquipmentTypeAll(function(error, response) {
+        dao.getEquipmentTypeAll("", 10, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
@@ -90,7 +105,7 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
                 ref.setState({
                     db_response: response,
                     resultsTable: results,
-                    tableState: "asVisible"
+                    tableState: "asVisible" 
                 })
             }
         });
@@ -99,7 +114,8 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
     //hides and displays the form for adding equipment.
     equipmentTypeClicked(event, equipmentType) {
         equipmentTypeModal.style.display = "";
-        
+        setEquipmentTypeId(equipmentType);
+        getAttributeNames();
         event.preventDefault();
     }
 
@@ -123,9 +139,12 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
                             <input name="enteraName" ref="typeName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
                         </label>
                         <br />
-                            {this.state.attributeNames};
+                        <label>
+                            Purchase ID:
+                            <input name="purchaseID" type="textarea" />
+                        </label>
                         <br />
-                
+                            {this.state.attributeNames}
                         <br />
                         <button id="addEquipmentButton" className="btn btn-secondary" type="button" onClick={(event) =>this.cancelAddEquipment(event)}>
                             {this.state.addText}

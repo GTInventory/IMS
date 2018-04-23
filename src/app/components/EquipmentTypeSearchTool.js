@@ -37,7 +37,7 @@ export class EquipmentTypeSearchTool extends React.Component {
     getSearchResults() {
         var ref = this;
 
-        dao.getEquipmentTypeAll(function(error, response) {
+        dao.getEquipmentTypeAll("", 10, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
