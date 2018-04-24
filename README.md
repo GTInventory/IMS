@@ -10,7 +10,6 @@ GT Inventory Management System
 #### Known Bugs
 - Editing equipment types has initial functionality on front end, but is not connected to the back end.
 - Delete buttons are not connected to soft delete functionality on the back end
-- 
 - Front end code for generating a table has a warning regarding whitespace appearing as a child of `<tbody>`.
 #### Future Implementation
 - Confirmation dialogs when a user clicks save or delete to prevent accidental edits
