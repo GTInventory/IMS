@@ -102,7 +102,7 @@ export class AttributeSearchTool extends React.Component {
                           placeholder={this.props.placeholder}
                           onChange={(event) => this.onHandleSearchChange(event)}/>
                         <span className="input-group-btn">
-                          <button id="submit" className="btn btn-secondary" 
+                          <button id="submit" className="btn btn-secondary"
                               type="button"
                               onClick={(event) =>this.searchButtonClicked(event)}>
                               <span className="glyphicon glyphicon-search"></span>

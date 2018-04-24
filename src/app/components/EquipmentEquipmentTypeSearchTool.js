@@ -10,7 +10,6 @@ require("../css/EquipmentTypeSearchToolStyle.css");
 
 let dao = require("../dao.js");
 
-import {Modal} from "./Modal";
 
 
 export class EquipmentEquipmentTypeSearchTool extends React.Component {
@@ -23,6 +22,10 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
             resultsTable: "",
             cancelText: "Cancel",
             addText:"Add Equipment",
+            equipmentTypeEnum: "",
+            equipmentTypeId: "",
+            attributeNames: "",
+
         };
 
         // This makes all equipment types load in results table on page render
@@ -35,8 +38,13 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
         });
     }
 
+    setEquipmentTypeId(equipmentType) {
+        this.setState({
+            equipmentTypeId: equipmentType.id
+        });
+    }
 
-
+    //This gets the search results
     searchButtonClicked(event) {
         this.getSearchResults();
         event.preventDefault();
@@ -48,40 +56,72 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
         });
     }
 
-    getSearchResults() {
+    getAttributeNames() {
         var ref = this;
-
-        dao.getEquipmentTypeAll(function(error, response) {
+        dao.getEquipmentTypeById(this.state.equipmentTypeId, function(error, response) {
             if (error != null) {
                 console.log(error);
             } else {
-                var numEls = response.result.length;
-				var equipmentTypeList = [];
-				for (var i = 0; i < numEls; i++) {
-					equipmentTypeList.push(response.result[i]);
-				}
-
-				var results = equipmentTypeList.map((function(equipmentType){
-								return (
-									<tr  na={equipmentType.name} key={equipmentType.name}  onClick={(event)=>ref.equipmentTypeClicked(event, equipmentType)}>
-										<td>{equipmentType.name}</td>
-									</tr>);
-							}).bind(this));
+                var numEls = response.result[0].attributes.length;
+                var attributesList = [];
+                for (var i = 0; i < numEls; i++) {
+                    attributesList.push(response.result[0].attributes[i]);
+                }
+                console.log(attributesList);
+                var results = attributesList.map((function(attribute){
+                                return (
+                                    <label na={attribute.name} key={attribute.name}>
+                                        {attribute.name}
+                                        <input type="textarea" />
+                                    </label>);
+                            }).bind(this));
 
                 ref.setState({
-					db_response: response,
-					resultsTable: results,
-					tableState: "asVisible"
+                    attributeNames: results,
                 })
             }
         });
     }
 
+    getSearchResults() {
+        var ref = this;
+
+        dao.getEquipmentTypeAll(0, 20, function(error, response) {
+            if (error != null) {
+                console.log(error);
+            } else {
+
+                var numEls = response.result.length;
+                var equipmentTypeList = [];
+                for (var i = 0; i < numEls; i++) {
+                    equipmentTypeList.push(response.result[i]);
+                }
+
+                var results = equipmentTypeList.map((function(equipmentType){
+                                return (
+                                    <tr  na={equipmentType.name} key={equipmentType.name}  onClick={(event)=>ref.equipmentTypeClicked(event, equipmentType)}>
+                                        <td>{equipmentType.name}</td>
+                                    </tr>);
+                            }).bind(this));
+
+                ref.setState({
+                    db_response: response,
+                    resultsTable: results,
+                    tableState: "asVisible"
+                })
+            }
+        });
+    }
+
+    //hides and displays the form for adding equipment.
     equipmentTypeClicked(event, equipmentType) {
         equipmentTypeModal.style.display = "";
+        this.setEquipmentTypeId(equipmentType);
+        this.getAttributeNames();
         event.preventDefault();
     }
 
+    //handler for the cancel button when a equipment type is selected and the user wants to cancel
     cancelAddEquipment(event) {
         equipmentTypeModal.style.display = "none";
         event.preventDefault();
@@ -91,21 +131,27 @@ export class EquipmentEquipmentTypeSearchTool extends React.Component {
         return (
             <div>
                 <div id= "equipmentTypeModal" style={{display:"none"}} >
-                        
-                        <form id= "addEquipmentForm">
-                            <button id="cancel" style={{position: "right"}} className="btn btn-secondary" type="button" onClick={(event) =>this.cancelAddEquipment(event)}>
-                                {this.state.cancelText}
-                            </button>
-                            <br />
-                            <label>
-                                Equipment Name:
-                                <input name="enteraName" ref="typeName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
-                            </label>
-                            <br />
-                            <button id="addEquipmentButton" className="btn btn-secondary" type="button" onClick={(event) =>this.cancelAddEquipment(event)}>
-                                {this.state.addText}
-                            </button>
-                        </form>
+                    <form id= "addEquipmentForm">
+                        <button id="cancel" style={{position: "right"}} className="btn btn-secondary" type="button" onClick={(event) =>this.cancelAddEquipment(event)}>
+                            {this.state.cancelText}
+                        </button>
+                        <br />
+                        <label>
+                            Equipment Name:
+                            <input name="enteraName" ref="typeName" type="textarea" onChange={(event) => this.handleInputChange(event)} />
+                        </label>
+                        <br />
+                        <label>
+                            Purchase ID:
+                            <input name="purchaseID" type="textarea" />
+                        </label>
+                        <br />
+                            {this.state.attributeNames}
+                        <br />
+                        <button id="addEquipmentButton" className="btn btn-secondary" type="button" onClick={(event) =>this.cancelAddEquipment(event)}>
+                            {this.state.addText}
+                        </button>
+                    </form>
                 </div>
                 <div>
                     <form onSubmit={(event) =>this.searchButtonClicked(event)}>
@@ -141,4 +187,3 @@ EquipmentEquipmentTypeSearchTool.propTypes = {
     placeholder: PropTypes.string,
     history: PropTypes.object
 };
-
