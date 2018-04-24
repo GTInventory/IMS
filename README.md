@@ -9,9 +9,14 @@ GT Inventory Management System
 - Users can perform a simple search for equipment, equipment types, attributes, and attribute values.
 #### Known Bugs
 - Editing equipment types has initial functionality on front end, but is not connected to the back end.
+- Delete buttons are not connected to soft delete functionality on the back end
+- 
 - Front end code for generating a table has a warning regarding whitespace appearing as a child of `<tbody>`.
 #### Future Implementation
-- Integration with Georgia Tech's Central Authentication System.
+- Confirmation dialogs when a user clicks save or delete to prevent accidental edits
+- Display acknowledgement to users when an action has been successfully performed.
+- Integration with Georgia Tech's Central Authentication System
+- Versioning
 
 # Installation Guide
 #### Dependencies
